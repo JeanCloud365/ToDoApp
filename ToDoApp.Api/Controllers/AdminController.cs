@@ -22,18 +22,21 @@ namespace ToDoApp.Api.Controllers
         [HttpGet("users")]
         [Authorize(Policy = "ReadAll")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Produces("application/json")]
+        
        
-        public async Task<ActionResult<ListToDoUsersViewModel>> ListAllUsers(ListToDoUsersQuery query)
+        public async Task<ActionResult<ListToDoUsersViewModel>> ListAllUsers()
         {
-            return Ok(await _mediator.Send(query));
+            return Ok(await _mediator.Send(new ListToDoUsersQuery()));
         }
         
         [HttpGet("items")]
         [Authorize(Policy = "ReadAll")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ListToDoItemsViewModel>> ListAllItems(ListToDoItemsQuery query)
+        [Produces("application/json")]
+        public async Task<ActionResult<ListToDoItemsViewModel>> ListAllItems()
         {
-            return Ok(await _mediator.Send(query));
+            return Ok(await _mediator.Send(new ListToDoItemsQuery()));
         }
     }
 }

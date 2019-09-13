@@ -39,7 +39,10 @@ namespace ToDoApp.Application.ToDoUsers.Commands.CreateToDoUser
                 }
                 else
                 {
-                    _toDoDbContext.ToDoUsers.Update(user);
+                    existing.Id = user.Id;
+                    existing.Mail = user.Mail;
+                    existing.Name = user.Name;
+                    _toDoDbContext.ToDoUsers.Update(existing);
                 }
 
                 await _toDoDbContext.SaveChangesAsync(cancellationToken);

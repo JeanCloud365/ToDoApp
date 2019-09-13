@@ -23,7 +23,8 @@ namespace ToDoApp.UI
     
         public AdminClient(System.Net.Http.HttpClient httpClient)
         {
-            _httpClient = httpClient; 
+            _httpClient = httpClient;
+            BaseUrl = _httpClient.BaseAddress.ToString();
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(() => 
             {
                 var settings = new Newtonsoft.Json.JsonSerializerSettings();
@@ -279,11 +280,13 @@ namespace ToDoApp.UI
     {
         private string _baseUrl = "https://localhost:5001";
         private System.Net.Http.HttpClient _httpClient;
+
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
         public ItemsClient(System.Net.Http.HttpClient httpClient)
         {
-            _httpClient = httpClient; 
+            _httpClient = httpClient;
+            BaseUrl = _httpClient.BaseAddress?.ToString();
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(() => 
             {
                 var settings = new Newtonsoft.Json.JsonSerializerSettings();
@@ -604,7 +607,8 @@ namespace ToDoApp.UI
     
         public TestClient(System.Net.Http.HttpClient httpClient)
         {
-            _httpClient = httpClient; 
+            _httpClient = httpClient;
+            BaseUrl = _httpClient.BaseAddress.ToString();
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(() => 
             {
                 var settings = new Newtonsoft.Json.JsonSerializerSettings();
@@ -790,7 +794,8 @@ namespace ToDoApp.UI
     
         public UsersClient(System.Net.Http.HttpClient httpClient)
         {
-            _httpClient = httpClient; 
+            _httpClient = httpClient;
+            BaseUrl = _httpClient.BaseAddress.ToString();
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(() => 
             {
                 var settings = new Newtonsoft.Json.JsonSerializerSettings();

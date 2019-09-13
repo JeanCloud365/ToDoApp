@@ -26,6 +26,7 @@ namespace ToDoApp.UI
     {
         public Startup(IConfiguration configuration)
         {
+          
             Configuration = configuration;
         }
 
@@ -35,7 +36,8 @@ namespace ToDoApp.UI
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            var api = Configuration.GetValue<string>("api") ?? "https:://localhost:50001";
+            var api = Configuration.GetValue<string>("api") ?? "https://jvm-todo-api.azurewebsites.net";
+            var baseRedirectUrl = Configuration.GetValue<string>("baseRedirectUrl") ?? "https://jvm-todo-web.azurewebsites.net";
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAuthentication(sharedOptions =>
                 {
@@ -58,6 +60,11 @@ namespace ToDoApp.UI
                     options.UseTokenLifetime = true;
                     options.Events = new OpenIdConnectEvents()
                     {
+                        OnRedirectToIdentityProvider = new Func<RedirectContext, Task>(o =>
+                        {
+                            o.ProtocolMessage.RedirectUri = baseRedirectUrl + "/signin-oidc";
+                            return Task.FromResult(0);
+                        }),
                         OnTicketReceived = new Func<TicketReceivedContext, Task>(async o =>
                         {
                             var token = o.Properties.GetTokenValue("access_token");
@@ -67,6 +74,7 @@ namespace ToDoApp.UI
                                 DefaultRequestHeaders = {Authorization = new AuthenticationHeaderValue("Bearer", token)}
                             };
                             var client = new UsersClient(httpClient);
+                            client.BaseUrl = api;
 
                             await client.CreateAsync(new CreateToDoUserCommand());
                         })
@@ -85,11 +93,15 @@ namespace ToDoApp.UI
             services.AddHttpClient<IItemsClient,ItemsClient>(async (serviceProvider, client) =>
             {
                 var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
-
+                if (httpContextAccessor.HttpContext == null)
+                    return;
                 var accessToken = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                if (accessToken != null)
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-                client.BaseAddress = new Uri(api);
+                    client.BaseAddress = new Uri(api);
+                }
             });
             
             services.AddHttpClient<IUsersClient,UsersClient>(async (serviceProvider, client) =>
@@ -108,6 +120,7 @@ namespace ToDoApp.UI
                 var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
 
                 var accessToken = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+                
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
                 client.BaseAddress = new Uri(api);
