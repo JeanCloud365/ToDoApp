@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>aspnet-ToDoApp.UI-0B7FC758-C0D4-43A8-A2DB-A26A328EE7CC</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.0.0-preview9.19424.4" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Shared\LoginDisplay - Copy.razor" />
+    <None Include="Shared\LoginDisplay - Copy.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <Generator>MSBuild:RazorGenerateComponentDeclarationDesignTime</Generator>
+    </None>
+  </ItemGroup>
+
+</Project>

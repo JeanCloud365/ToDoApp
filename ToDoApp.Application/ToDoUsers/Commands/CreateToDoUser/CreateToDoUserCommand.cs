@@ -1,0 +1,52 @@
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using ToDoApp.Application.Interfaces;
+using ToDoApp.Domain.Entities;
+
+namespace ToDoApp.Application.ToDoUsers.Commands.CreateToDoUser
+{
+    public class CreateToDoUserCommand:IRequest
+    {
+
+        public class Handler : IRequestHandler<CreateToDoUserCommand, Unit>
+        {
+
+            private readonly ICurrentUser _currentUser;
+            private readonly IToDoDbContext _toDoDbContext;
+
+            public Handler(ICurrentUser currentUser, IToDoDbContext toDoDbContext)
+            {
+                _toDoDbContext = toDoDbContext;
+                _currentUser = currentUser;
+            }
+
+            public async Task<Unit> Handle(CreateToDoUserCommand request, CancellationToken cancellationToken)
+            {
+                var existing = await _toDoDbContext.ToDoUsers.FindAsync(_currentUser.Id);
+               
+                var user = new ToDoUser()
+                {
+                    Id = _currentUser.Id,
+                    Mail = _currentUser.Mail,
+                    Name = _currentUser.Name
+                };
+
+
+                if (existing == null)
+                {
+                    _toDoDbContext.ToDoUsers.Add(user);
+                }
+                else
+                {
+                    _toDoDbContext.ToDoUsers.Update(user);
+                }
+
+                await _toDoDbContext.SaveChangesAsync(cancellationToken);
+                return Unit.Value;
+            }
+        
+        }
+        
+    }
+}

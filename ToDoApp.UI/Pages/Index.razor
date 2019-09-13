@@ -1,0 +1,99 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@inject IItemsClient ItemsClient
+
+<table class="table">
+<thead>
+<tr>
+<th>Title</th>
+<th>Description</th>
+<th>Status</th>
+
+
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><input placeholder="title" @bind="newTitle" /></td>
+<td><input placeholder="description" @bind="newDescription" /></td>
+<td><button @onclick="AddTodo">Add</button></td>
+</tr>
+@foreach (var item in items)
+{
+    <tr>
+<td>@item.Title</td>
+<td>@item.Description</td>
+<td>@item.Status @if (item.Status == "NotDone")
+                 {
+                     <button style="display: inline" @onclick="@(() => CompleteTodo(item.Id))">Set Done</button>
+                 }</td>
+</tr>
+}
+
+
+</tbody>
+</table>
+
+
+@code {
+
+    private IEnumerable<ListToDoItemsOfUserDto> items = Enumerable.Empty<ListToDoItemsOfUserDto>();
+    private string newTitle;
+    private string newDescription;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Refresh();
+    }
+
+    private async Task Refresh()
+    {
+        var ret = (await ItemsClient.ListAsync());
+        items = ret?.Items ?? Enumerable.Empty<ListToDoItemsOfUserDto>();
+    }
+
+    private async Task CompleteTodo(string id)
+    {
+        var item = items.FirstOrDefault(o => o.Id.Equals(id));
+        var cmd = new UpdateToDoItemCommand()
+        {
+            Id = new Guid(item.Id),
+            Description = item.Description,
+            Status = "Done",
+            Title = item.Title
+        };
+        await ItemsClient.UpdateAsync(cmd);
+        await Refresh();
+    }
+
+    private async Task AddTodo()
+    {
+        if (string.IsNullOrEmpty(newTitle) || string.IsNullOrEmpty(newDescription))
+        {
+            return;
+        }
+
+        try
+        {
+
+            await ItemsClient.CreateAsync(new CreateToDoItemCommand()
+            {
+                Title = newTitle,
+                Description = newDescription
+            });
+            items = (await ItemsClient.ListAsync()).Items;
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            await Refresh();
+            newTitle = string.Empty;
+            newDescription = string.Empty;
+        }
+    }
+
+}

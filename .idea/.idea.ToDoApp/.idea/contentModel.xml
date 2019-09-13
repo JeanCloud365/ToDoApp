@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="ToDoApp.Api" t="IncludeRecursive">
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="AdminController.cs" t="Include" />
+          <e p="ItemsController.cs" t="Include" />
+          <e p="TestController.cs" t="Include" />
+          <e p="UsersController.cs" t="Include" />
+        </e>
+        <e p="data.db" t="Include" />
+        <e p="Filters" t="Include">
+          <e p="CustomExceptionFilter.cs" t="Include" />
+        </e>
+        <e p="Infrastructure" t="Include">
+          <e p="CurrentUser.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="ToDoApp.Api.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="ToDoApp.Api.csproj" t="IncludeRecursive" />
+        <e p="WeatherForecast.cs" t="Include" />
+      </e>
+      <e p="ToDoApp.Application" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Infrastructure" t="Include">
+          <e p="RequestValidationBehavior.cs" t="Include" />
+        </e>
+        <e p="Interfaces" t="Include">
+          <e p="ICurrentUser.cs" t="Include" />
+          <e p="IToDoDbContext.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="ToDoApp.Application.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="ToDoApp.Application.csproj" t="IncludeRecursive" />
+        <e p="ToDoItems" t="Include">
+          <e p="Commands" t="Include">
+            <e p="CreateToDoItem" t="Include">
+              <e p="CreateToDoItemCommand.cs" t="Include" />
+              <e p="CreateToDoItemCommandValidator.cs" t="Include" />
+              <e p="CreateToDoItemDto.cs" t="Include" />
+              <e p="CreateToDoItemViewModel.cs" t="Include" />
+            </e>
+            <e p="UpdateToDoItem" t="Include">
+              <e p="UpdateToDoItemCommand.cs" t="Include" />
+              <e p="UpdateToDoItemCommandValidator.cs" t="Include" />
+              <e p="UpdateToDoItemDto.cs" t="Include" />
+              <e p="UpdateToDoItemViewModel.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Queries" t="Include">
+            <e p="ListToDoItems" t="Include">
+              <e p="ListToDoItemsDto.cs" t="Include" />
+              <e p="ListToDoItemsQuery.cs" t="Include" />
+              <e p="ListToDoItemsViewModel.cs" t="Include" />
+            </e>
+            <e p="ListToDoItemsOfUser" t="Include">
+              <e p="ListToDoItemsOfUserDto.cs" t="Include" />
+              <e p="ListToDoItemsOfUserQuery.cs" t="Include" />
+              <e p="ListToDoItemsOfUserViewModel.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="ToDoUsers" t="Include">
+          <e p="Commands" t="Include">
+            <e p="CreateToDoUser" t="Include">
+              <e p="CreateToDoItemCommandValidator.cs" t="Include" />
+              <e p="CreateToDoUserCommand.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Queries" t="Include">
+            <e p="ListToDoUsers" t="Include">
+              <e p="ListToDoUsersDto.cs" t="Include" />
+              <e p="ListTodoUsersQuery.cs" t="Include" />
+              <e p="ListToDoUsersViewModel.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="ToDoApp.Domain" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Entities" t="Include">
+          <e p="ToDoItem.cs" t="Include" />
+          <e p="ToDoUser.cs" t="Include" />
+        </e>
+        <e p="Enumerations" t="Include">
+          <e p="ToDoStatus.cs" t="Include" />
+        </e>
+        <e p="Infrastructure" t="Include">
+          <e p="Enumeration.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="ToDoApp.Domain.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="ToDoApp.Domain.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="ToDoApp.Persistence" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Configurations" t="Include">
+          <e p="ToDoItemConfiguration.cs" t="Include" />
+          <e p="ToDoUserConfiguration.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="ToDoApp.Persistence.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="ToDoApp.Persistence.csproj" t="IncludeRecursive" />
+        <e p="ToDoDbContext.cs" t="Include" />
+      </e>
+      <e p="ToDoApp.sln" t="IncludeFlat" />
+      <e p="ToDoApp.UI" t="IncludeRecursive">
+        <e p="_Imports.razor" t="Include" />
+        <e p="App.razor" t="Include" />
+        <e p="appsettings - Copy.json" t="Include" />
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Data" t="Include">
+          <e p="WeatherForecast.cs" t="Include" />
+          <e p="WeatherForecastService.cs" t="Include" />
+        </e>
+        <e p="IAdminClient.cs" t="Include" />
+        <e p="IItemsClient.cs" t="Include" />
+        <e p="IToDoClient.cs" t="Include" />
+        <e p="IUsersClient.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="ToDoApp.UI.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Pages" t="Include">
+          <e p="_Host.cshtml" t="Include" />
+          <e p="Counter.razor" t="Include" />
+          <e p="Error.razor" t="Include" />
+          <e p="FetchData.razor" t="Include" />
+          <e p="Index - Copy.razor" t="Include" />
+          <e p="Index.razor" t="Include" />
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Shared" t="Include">
+          <e p="LoginDisplay - Copy.razor" t="Include" />
+          <e p="LoginDisplay.razor" t="Include" />
+          <e p="MainLayout - Copy.razor" t="Include" />
+          <e p="MainLayout.razor" t="Include" />
+          <e p="NavMenu.razor" t="Include" />
+          <e p="ToDo.razor" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="ToDoApp.UI.csproj" t="IncludeRecursive" />
+        <e p="ToDoClient.cs" t="Include" />
+        <e p="wwwroot" t="Include">
+          <e p="css" t="Include">
+            <e p="bootstrap" t="Include">
+              <e p="bootstrap.min.css" t="Include" />
+              <e p="bootstrap.min.css.map" t="Include" />
+            </e>
+            <e p="open-iconic" t="Include">
+              <e p="font" t="Include">
+                <e p="css" t="Include">
+                  <e p="open-iconic-bootstrap.min.css" t="Include" />
+                </e>
+                <e p="fonts" t="Include">
+                  <e p="open-iconic.eot" t="Include" />
+                  <e p="open-iconic.otf" t="Include" />
+                  <e p="open-iconic.svg" t="Include" />
+                  <e p="open-iconic.ttf" t="Include" />
+                  <e p="open-iconic.woff" t="Include" />
+                </e>
+              </e>
+              <e p="FONT-LICENSE" t="Include" />
+              <e p="ICON-LICENSE" t="Include" />
+              <e p="README.md" t="Include" />
+            </e>
+            <e p="site.css" t="Include" />
+          </e>
+          <e p="favicon.ico" t="Include" />
+        </e>
+      </e>
+      <e p="ToDoApp.Web" t="IncludeRecursive">
+        <e p="ToDoApp.Web.csproj" t="IncludeRecursive" />
+      </e>
+    </e>
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_ToDoApp.1489891902.00" t="ExcludeRecursive" />
+  </component>
+</project>
