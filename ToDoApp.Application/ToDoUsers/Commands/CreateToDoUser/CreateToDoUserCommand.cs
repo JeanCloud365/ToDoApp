@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using ToDoApp.Application.Interfaces;
+using ToDoApp.Application.Common.Interfaces;
 using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Application.ToDoUsers.Commands.CreateToDoUser
@@ -12,10 +12,10 @@ namespace ToDoApp.Application.ToDoUsers.Commands.CreateToDoUser
         public class Handler : IRequestHandler<CreateToDoUserCommand, Unit>
         {
 
-            private readonly ICurrentUser _currentUser;
+            private readonly ICurrentUserService _currentUser;
             private readonly IToDoDbContext _toDoDbContext;
 
-            public Handler(ICurrentUser currentUser, IToDoDbContext toDoDbContext)
+            public Handler(ICurrentUserService currentUser, IToDoDbContext toDoDbContext)
             {
                 _toDoDbContext = toDoDbContext;
                 _currentUser = currentUser;

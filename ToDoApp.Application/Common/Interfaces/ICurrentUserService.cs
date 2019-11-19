@@ -1,8 +1,8 @@
 using System;
 
-namespace ToDoApp.Application.Interfaces
+namespace ToDoApp.Application.Common.Interfaces
 {
-    public interface ICurrentUser
+    public interface ICurrentUserService
     {
         Guid Id { get; }
         

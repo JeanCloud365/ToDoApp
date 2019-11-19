@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using ToDoApp.Application.Interfaces;
+using ToDoApp.Application.Common.Interfaces;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.Enumerations;
 using ToDoApp.Domain.Infrastructure;
@@ -20,10 +20,10 @@ namespace ToDoApp.Application.ToDoItems.Commands.UpdateToDoItem
         public class Handler : IRequestHandler<UpdateToDoItemCommand, Unit>
         {
 
-            private readonly ICurrentUser _currentUser;
+            private readonly ICurrentUserService _currentUser;
             private readonly IToDoDbContext _toDoDbContext;
 
-            public Handler(ICurrentUser currentUser, IToDoDbContext toDoDbContext)
+            public Handler(ICurrentUserService currentUser, IToDoDbContext toDoDbContext)
             {
                 _currentUser = currentUser;
                 _toDoDbContext = toDoDbContext;

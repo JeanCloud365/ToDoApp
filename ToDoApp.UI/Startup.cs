@@ -89,7 +89,7 @@ namespace ToDoApp.UI
                     .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
-            
+            services.AddHttpClient()
             services.AddHttpClient<IItemsClient,ItemsClient>(async (serviceProvider, client) =>
             {
                 var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
@@ -126,11 +126,11 @@ namespace ToDoApp.UI
                 client.BaseAddress = new Uri(api);
             });
             
-            //  .AddAzureAdB2C(options => Configuration.Bind("Authentication:AzureAdB2C", options))
+           
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

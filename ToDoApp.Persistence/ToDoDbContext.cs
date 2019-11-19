@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using ToDoApp.Application.Interfaces;
+using ToDoApp.Application.Common.Interfaces;
 using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Persistence

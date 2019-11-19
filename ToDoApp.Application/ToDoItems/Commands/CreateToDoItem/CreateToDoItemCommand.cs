@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using ToDoApp.Application.Interfaces;
+using ToDoApp.Application.Common.Interfaces;
 using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Application.ToDoItems.Commands.CreateToDoItem
@@ -14,10 +14,10 @@ namespace ToDoApp.Application.ToDoItems.Commands.CreateToDoItem
         public class Handler : IRequestHandler<CreateToDoItemCommand, CreateToDoItemViewModel>
         {
 
-            private ICurrentUser _currentUser;
+            private ICurrentUserService _currentUser;
             private IToDoDbContext _toDoDbContext;
 
-            public Handler(ICurrentUser currentUser, IToDoDbContext toDoDbContext)
+            public Handler(ICurrentUserService currentUser, IToDoDbContext toDoDbContext)
             {
                 _currentUser = currentUser;
                 _toDoDbContext = toDoDbContext;

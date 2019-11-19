@@ -5,10 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="FluentValidation" Version="8.4.0" />
+      <PackageReference Include="FluentValidation" Version="8.5.1" />
       <PackageReference Include="FluentValidationExtensions.AutoMapper" Version="1.0.0" />
       <PackageReference Include="MediatR" Version="7.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview9.19423.6" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
     </ItemGroup>
 
     <ItemGroup>

@@ -9,5 +9,7 @@ namespace ToDoApp.Domain.Entities
         public string Name { get; set; }
         
         public string Mail { get; set; }
+
+        public Uri WebhookUrl { get; set; }
     }
 }

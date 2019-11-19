@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using FluentValidation;
 using FluentValidation.Results;
-using ToDoApp.Application.Interfaces;
+using ToDoApp.Application.Common.Interfaces;
 using ToDoApp.Application.ToDoItems.Commands.CreateToDoItem;
 
 namespace ToDoApp.Application.ToDoUsers.Commands.CreateToDoUser
 {
     public class CreateToDoUserCommandValidator:AbstractValidator<CreateToDoUserCommand>
     {
-        private readonly ICurrentUser _currentUser;
+        private readonly ICurrentUserService _currentUser;
 
-        public CreateToDoUserCommandValidator(ICurrentUser currentUser)
+        public CreateToDoUserCommandValidator(ICurrentUserService currentUser)
         {
             _currentUser = currentUser;
         }

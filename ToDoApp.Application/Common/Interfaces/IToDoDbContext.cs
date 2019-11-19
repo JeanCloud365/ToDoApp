@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using ToDoApp.Domain.Entities;
 
-namespace ToDoApp.Application.Interfaces
+namespace ToDoApp.Application.Common.Interfaces
 {
     public interface IToDoDbContext
     {

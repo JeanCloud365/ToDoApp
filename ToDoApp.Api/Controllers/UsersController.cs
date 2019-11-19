@@ -9,26 +9,17 @@ using ToDoApp.Application.ToDoUsers.Queries.ListToDoUsers;
 
 namespace ToDoApp.Api.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    [Authorize]
 
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
-        private readonly IMediator _mediator;
 
-        public UsersController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-        
-        [HttpPost("register")]
+        [HttpPost()]
         
         [ProducesResponseType(StatusCodes.Status200OK)]
        
         public async Task<ActionResult<ListToDoUsersViewModel>> Create(CreateToDoUserCommand command)
         {
-            return Ok(await _mediator.Send(command));
+            return Ok(await Mediator.Send(command));
         }
         
       

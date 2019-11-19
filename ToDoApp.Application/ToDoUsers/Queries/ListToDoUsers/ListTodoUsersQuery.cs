@@ -2,7 +2,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using ToDoApp.Application.Interfaces;
+using ToDoApp.Application.Common.Interfaces;
 
 namespace ToDoApp.Application.ToDoUsers.Queries.ListToDoUsers
 {
@@ -11,9 +11,9 @@ namespace ToDoApp.Application.ToDoUsers.Queries.ListToDoUsers
         public class Handler : IRequestHandler<ListToDoUsersQuery, ListToDoUsersViewModel>
         {
             private readonly IToDoDbContext _toDoDbContext;
-            private readonly ICurrentUser _currentUser;
+            private readonly ICurrentUserService _currentUser;
 
-            public Handler(IToDoDbContext toDoDbContext, ICurrentUser currentUser)
+            public Handler(IToDoDbContext toDoDbContext, ICurrentUserService currentUser)
             {
                 _toDoDbContext = toDoDbContext;
                 _currentUser = currentUser;
