@@ -11,12 +11,4 @@
     <PackageReference Include="Microsoft.Identity.Client" Version="4.7.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="Shared\LoginDisplay - Copy.razor" />
-    <None Include="Shared\LoginDisplay - Copy.razor">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <Generator>MSBuild:RazorGenerateComponentDeclarationDesignTime</Generator>
-    </None>
-  </ItemGroup>
-
 </Project>

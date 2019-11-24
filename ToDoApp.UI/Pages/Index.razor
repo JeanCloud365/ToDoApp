@@ -1,38 +1,41 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Authorization
+@using ToDoApp.Client
 @attribute [Authorize]
 @inject IItemsClient ItemsClient
 
 <table class="table">
-<thead>
-<tr>
-<th>Title</th>
-<th>Description</th>
-<th>Status</th>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
 
 
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><input placeholder="title" @bind="newTitle" /></td>
-<td><input placeholder="description" @bind="newDescription" /></td>
-<td><button @onclick="AddTodo">Add</button></td>
-</tr>
-@foreach (var item in items)
-{
-    <tr>
-<td>@item.Title</td>
-<td>@item.Description</td>
-<td>@item.Status @if (item.Status == "NotDone")
-                 {
-                     <button style="display: inline" @onclick="@(() => CompleteTodo(item.Id))">Set Done</button>
-                 }</td>
-</tr>
-}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input placeholder="title" @bind="newTitle" /></td>
+            <td><input placeholder="description" @bind="newDescription" /></td>
+            <td><button @onclick="AddTodo">Add</button></td>
+        </tr>
+        @foreach (var item in items)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Description</td>
+                <td>
+                    @item.Status @if (item.Status == "NotDone")
+                {
+                    <button style="display: inline" @onclick="@(() => CompleteTodo(item.Id.ToString()))">Set Done</button>
+                }
+                </td>
+            </tr>
+        }
 
 
-</tbody>
+    </tbody>
 </table>
 
 
@@ -55,14 +58,10 @@
 
     private async Task CompleteTodo(string id)
     {
-        var item = items.FirstOrDefault(o => o.Id.Equals(id));
-        var cmd = new UpdateToDoItemCommand()
-        {
-            Id = new Guid(item.Id),
-            Description = item.Description,
-            Status = "Done",
-            Title = item.Title
-        };
+        var guid = new Guid(id);
+        var item = items.FirstOrDefault(o => o.Id.Equals(guid));
+        var cmd = new UpdateToDoItemCommand(item.Description, new Guid(id), "Done", item.Title);
+
         await ItemsClient.UpdateAsync(cmd);
         await Refresh();
     }
@@ -77,11 +76,7 @@
         try
         {
 
-            await ItemsClient.CreateAsync(new CreateToDoItemCommand()
-            {
-                Title = newTitle,
-                Description = newDescription
-            });
+            await ItemsClient.CreateAsync(new CreateToDoItemCommand(newDescription, newTitle));
             items = (await ItemsClient.ListAsync()).Items;
         }
         catch

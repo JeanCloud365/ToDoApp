@@ -29,6 +29,7 @@ using ToDoApp.Application.Common.Behaviors;
 using ToDoApp.Application.Common.Interfaces;
 using ToDoApp.Application.ToDoUsers.Commands.CreateToDoUser;
 using ToDoApp.Application.ToDoUsers.Queries.ListToDoUsers;
+using ToDoApp.Infrastructure;
 using ToDoApp.Persistence;
 using AuthenticationOptions = ToDoApp.Api.Common.AuthenticationOptions;
 
@@ -50,6 +51,7 @@ namespace ToDoApp.Api
         {
             services.AddApplication();
             services.AddPersistence();
+            services.AddInfrastructure();
             services.AddHealthChecks()
                 .AddDbContextCheck<ToDoDbContext>();
             services.AddHttpContextAccessor();

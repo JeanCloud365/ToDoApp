@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:32850",
-      "sslPort": 44348
+      "applicationUrl": "http://localhost:5000",
+      "sslPort": 44301
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
@@ -18,7 +18,7 @@
       }
     },
     "ToDoApp.Api": {
-      "commandName": "Project",
+      "commandName": "IISExpress",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

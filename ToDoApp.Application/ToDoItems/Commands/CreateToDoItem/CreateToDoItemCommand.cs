@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using ToDoApp.Application.Common.Interfaces;
+using ToDoApp.Application.Notifications.Models;
 using ToDoApp.Domain.Entities;
 
 namespace ToDoApp.Application.ToDoItems.Commands.CreateToDoItem
@@ -14,13 +15,15 @@ namespace ToDoApp.Application.ToDoItems.Commands.CreateToDoItem
         public class Handler : IRequestHandler<CreateToDoItemCommand, CreateToDoItemViewModel>
         {
 
-            private ICurrentUserService _currentUser;
-            private IToDoDbContext _toDoDbContext;
+            private readonly ICurrentUserService _currentUser;
+            private readonly IToDoDbContext _toDoDbContext;
+            private readonly IMediator _mediator;
 
-            public Handler(ICurrentUserService currentUser, IToDoDbContext toDoDbContext)
+            public Handler(ICurrentUserService currentUser, IToDoDbContext toDoDbContext,IMediator mediator)
             {
                 _currentUser = currentUser;
                 _toDoDbContext = toDoDbContext;
+                _mediator = mediator;
             }
             public async Task<CreateToDoItemViewModel> Handle(CreateToDoItemCommand request, CancellationToken cancellationToken)
             {
@@ -38,6 +41,11 @@ namespace ToDoApp.Application.ToDoItems.Commands.CreateToDoItem
                 };
                 var createdTodoItem = _toDoDbContext.ToDoItems.Add(entity);
                 await _toDoDbContext.SaveChangesAsync(cancellationToken);
+                await _mediator.Publish(new ToDoItemUpdated()
+                {
+                    ToDoId = entity.Id,
+                    UserId = user.Id
+                },cancellationToken);
                 return new CreateToDoItemViewModel()
                 {
                     ToDoItem = new CreateToDoItemDto()

@@ -47,7 +47,7 @@ namespace ToDoApp.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]   
         public async Task<IActionResult> Update(UpdateToDoItemCommand command)
         {
-            await Mediator.Send(command);
+                            await Mediator.Send(command);
             return Ok();
         }
         

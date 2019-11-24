@@ -22,11 +22,13 @@ namespace ToDoApp.Application.ToDoItems.Commands.UpdateToDoItem
 
             private readonly ICurrentUserService _currentUser;
             private readonly IToDoDbContext _toDoDbContext;
+            private readonly IMediator _mediator;
 
-            public Handler(ICurrentUserService currentUser, IToDoDbContext toDoDbContext)
+            public Handler(ICurrentUserService currentUser, IToDoDbContext toDoDbContext,IMediator mediator)
             {
                 _currentUser = currentUser;
                 _toDoDbContext = toDoDbContext;
+                _mediator = mediator;
             }
             public async Task<Unit> Handle(UpdateToDoItemCommand request, CancellationToken cancellationToken)
             {
@@ -52,6 +54,11 @@ namespace ToDoApp.Application.ToDoItems.Commands.UpdateToDoItem
                 todo.Status = status;
                 _toDoDbContext.ToDoItems.Update(todo);
                 await _toDoDbContext.SaveChangesAsync(cancellationToken);
+                await _mediator.Publish(new ToDoItemUpdated()
+                {
+                    UserId = _currentUser.Id,
+                    ToDoId = todo.Id
+                });
                 return Unit.Value;
             }
         }

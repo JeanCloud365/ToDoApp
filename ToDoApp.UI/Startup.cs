@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ToDoApp.UI.Data;
+using ToDoApp.Client;
 
 namespace ToDoApp.UI
 {
@@ -36,8 +36,8 @@ namespace ToDoApp.UI
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            var api = Configuration.GetValue<string>("api") ?? "https://jvm-todo-api.azurewebsites.net";
-            var baseRedirectUrl = Configuration.GetValue<string>("baseRedirectUrl") ?? "https://jvm-todo-web.azurewebsites.net";
+            var api = Configuration.GetValue<string>("api");
+            var baseRedirectUrl = Configuration.GetValue<string>("baseRedirectUrl");
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAuthentication(sharedOptions =>
                 {
@@ -53,10 +53,10 @@ namespace ToDoApp.UI
                     options.Scope.Add("https://appdatadev.onmicrosoft.com/todo/ReadAll");
                     options.ResponseType = "id_token token";
                     options.SaveTokens = true;
-                    options.ClientId = "b586b614-2269-4b14-b08d-820c5e76a79c";
+                    options.ClientId = Configuration.GetValue<string>("clientId");
                     options.AuthenticationMethod = OpenIdConnectRedirectBehavior.FormPost;
                     options.Authority =
-                        "https://login.microsoftonline.com/tfp/b6110487-86e3-418f-aba6-7f26f3bccc48/B2C_1_SignUpSignIn/v2.0";
+                        Configuration.GetValue<string>("authority");
                     options.UseTokenLifetime = true;
                     options.Events = new OpenIdConnectEvents()
                     {
@@ -74,7 +74,6 @@ namespace ToDoApp.UI
                                 DefaultRequestHeaders = {Authorization = new AuthenticationHeaderValue("Bearer", token)}
                             };
                             var client = new UsersClient(httpClient);
-                            client.BaseUrl = api;
 
                             await client.CreateAsync(new CreateToDoUserCommand());
                         })
@@ -89,49 +88,36 @@ namespace ToDoApp.UI
                     .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
-            services.AddHttpClient()
+          
             services.AddHttpClient<IItemsClient,ItemsClient>(async (serviceProvider, client) =>
-            {
-                var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
-                if (httpContextAccessor.HttpContext == null)
-                    return;
-                var accessToken = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-                if (accessToken != null)
                 {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-                    client.BaseAddress = new Uri(api);
-                }
-            });
+                    client = await GenerateAuthenticatedClient(serviceProvider, client, api);
+                });
             
             services.AddHttpClient<IUsersClient,UsersClient>(async (serviceProvider, client) =>
             {
-                var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
+                client = await GenerateAuthenticatedClient(serviceProvider, client, api);
 
-                var accessToken = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-                client.BaseAddress = new Uri(api);
-                
             });
             
-            services.AddHttpClient<IAdminClient,AdminClient>(async (serviceProvider, client) =>
-            {
-                var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
-
-                var accessToken = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-                
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-                client.BaseAddress = new Uri(api);
-            });
-            
-           
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
           
         }
+
+        private async Task<HttpClient> GenerateAuthenticatedClient(IServiceProvider serviceProvider, HttpClient client, string baseUrl)
+        {
+            var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
+
+            var accessToken = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            client.BaseAddress = new Uri(baseUrl);
+
+            return client;
+        }
+     
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

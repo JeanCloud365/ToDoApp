@@ -57,13 +57,11 @@ namespace ToDoApp.Client
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.1.5.0 (NJsonSchema v10.0.27.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ItemsClient : IItemsClient
     {
-        private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
-        public ItemsClient(string baseUrl, System.Net.Http.HttpClient httpClient)
+        public ItemsClient(System.Net.Http.HttpClient httpClient)
         {
-            BaseUrl = baseUrl; 
             _httpClient = httpClient; 
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(() => 
             {
@@ -71,12 +69,6 @@ namespace ToDoApp.Client
                 UpdateJsonSerializerSettings(settings);
                 return settings;
             });
-        }
-    
-        public string BaseUrl 
-        {
-            get { return _baseUrl; }
-            set { _baseUrl = value; }
         }
     
         protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
@@ -97,7 +89,7 @@ namespace ToDoApp.Client
         public async System.Threading.Tasks.Task<ListToDoItemsOfUserViewModel> ListAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Items");
+            urlBuilder_.Append("api/Items");
     
             var client_ = _httpClient;
             try
@@ -162,7 +154,7 @@ namespace ToDoApp.Client
         public async System.Threading.Tasks.Task<CreateToDoItemViewModel> CreateAsync(CreateToDoItemCommand command, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Items");
+            urlBuilder_.Append("api/Items");
     
             var client_ = _httpClient;
             try
@@ -230,7 +222,7 @@ namespace ToDoApp.Client
         public async System.Threading.Tasks.Task UpdateAsync(UpdateToDoItemCommand command, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Items");
+            urlBuilder_.Append("api/Items");
     
             var client_ = _httpClient;
             try
@@ -294,7 +286,7 @@ namespace ToDoApp.Client
         public async System.Threading.Tasks.Task<ListToDoItemsOfUserViewModel> GetAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Items/{id}");
+            urlBuilder_.Append("api/Items/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
     
             var client_ = _httpClient;
@@ -372,7 +364,7 @@ namespace ToDoApp.Client
         public async System.Threading.Tasks.Task<ListToDoItemsViewModel> List2Async(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/admin/Items");
+            urlBuilder_.Append("api/admin/Items");
     
             var client_ = _httpClient;
             try
@@ -541,13 +533,11 @@ namespace ToDoApp.Client
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.1.5.0 (NJsonSchema v10.0.27.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class UsersClient : IUsersClient
     {
-        private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
-        public UsersClient(string baseUrl, System.Net.Http.HttpClient httpClient)
+        public UsersClient(System.Net.Http.HttpClient httpClient)
         {
-            BaseUrl = baseUrl; 
             _httpClient = httpClient; 
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(() => 
             {
@@ -555,12 +545,6 @@ namespace ToDoApp.Client
                 UpdateJsonSerializerSettings(settings);
                 return settings;
             });
-        }
-    
-        public string BaseUrl 
-        {
-            get { return _baseUrl; }
-            set { _baseUrl = value; }
         }
     
         protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
@@ -581,7 +565,7 @@ namespace ToDoApp.Client
         public async System.Threading.Tasks.Task<ListToDoUsersViewModel> CreateAsync(CreateToDoUserCommand command, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Users");
+            urlBuilder_.Append("api/Users");
     
             var client_ = _httpClient;
             try
@@ -649,7 +633,7 @@ namespace ToDoApp.Client
         public async System.Threading.Tasks.Task<ListToDoUsersViewModel> ListAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/admin/Users");
+            urlBuilder_.Append("api/admin/Users");
     
             var client_ = _httpClient;
             try
@@ -825,13 +809,11 @@ namespace ToDoApp.Client
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.1.5.0 (NJsonSchema v10.0.27.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class WebhookClient : IWebhookClient
     {
-        private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
-        public WebhookClient(string baseUrl, System.Net.Http.HttpClient httpClient)
+        public WebhookClient(System.Net.Http.HttpClient httpClient)
         {
-            BaseUrl = baseUrl; 
             _httpClient = httpClient; 
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(() => 
             {
@@ -839,12 +821,6 @@ namespace ToDoApp.Client
                 UpdateJsonSerializerSettings(settings);
                 return settings;
             });
-        }
-    
-        public string BaseUrl 
-        {
-            get { return _baseUrl; }
-            set { _baseUrl = value; }
         }
     
         protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
@@ -865,7 +841,7 @@ namespace ToDoApp.Client
         public async System.Threading.Tasks.Task CreateAsync(AddToDoUserWebhookCommand command, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Webhook");
+            urlBuilder_.Append("api/Webhook");
     
             var client_ = _httpClient;
             try
@@ -941,7 +917,7 @@ namespace ToDoApp.Client
         public async System.Threading.Tasks.Task DeleteAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Webhook");
+            urlBuilder_.Append("api/Webhook");
     
             var client_ = _httpClient;
             try
@@ -1014,7 +990,7 @@ namespace ToDoApp.Client
         public async System.Threading.Tasks.Task<GetTodoUserWebhookViewModel> GetAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Webhook");
+            urlBuilder_.Append("api/Webhook");
     
             var client_ = _httpClient;
             try
