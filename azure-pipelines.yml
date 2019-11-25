@@ -18,7 +18,9 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
+    configuration: $(buildConfiguration)
     projects: '**/ToDoApp.Api.csproj'
+    arguments: '--output $(build.artifactstagingdirectory)\api --configuration Release'
    
 
 - task: DotNetCoreCLI@2
@@ -29,11 +31,8 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
+    configuration: $(buildConfiguration)
     projects: '**/ToDoApp.UI.csproj'
-
-- task: CopyFiles@2
-  inputs:
-    Contents: '**\ToDoApp.Api\bin\release'
-    TargetFolder: '$(build.artifactstagingdirectory)\api'
+    arguments: '--output $(build.artifactstagingdirectory)\ui --configuration Release'
 
 
