@@ -35,14 +35,14 @@ steps:
   inputs:
     command: 'build'
     configuration: $(buildConfiguration)
-    projects: '**/ToDoApp.Web.csproj'
+    projects: '**/ToDoApp.Ui.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     configuration: $(buildConfiguration)
-    projects: '**/ToDoApp.Web.csproj'
+    projects: '**/ToDoApp.Ui.csproj'
     publishWebProjects: True
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\web'
     zipAfterPublish: True
