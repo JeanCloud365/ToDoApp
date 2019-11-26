@@ -5,6 +5,11 @@
     "title": "ToDo App",
     "version": "1.0.0"
   },
+  "host": "localhost:44301",
+  "basePath": "/api",
+  "schemes": [
+    "https"
+  ],
   "paths": {
     "/api/Items": {
       "get": {
