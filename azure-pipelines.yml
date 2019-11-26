@@ -44,7 +44,7 @@ steps:
     configuration: $(buildConfiguration)
     projects: '**/ToDoApp.Ui.csproj'
     publishWebProjects: True
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\web'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\ui'
     zipAfterPublish: True
     
 - task: PublishPipelineArtifact@1
