@@ -27,7 +27,7 @@ steps:
     command: 'publish'
     configuration: $(buildConfiguration)
     projects: '**/ToDoApp.Api.csproj'
-    publishWebProjects: True
+    publishWebProjects: False
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\api'
     zipAfterPublish: True
 
@@ -43,7 +43,7 @@ steps:
     command: 'publish'
     configuration: $(buildConfiguration)
     projects: '**/ToDoApp.Ui.csproj'
-    publishWebProjects: True
+    publishWebProjects: False
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\ui'
     zipAfterPublish: True
     
