@@ -70,8 +70,9 @@ namespace ToDoApp.Api
 
             services.AddRazorPages();
 
-            services.AddOpenApiDocument(o =>
+            services.AddSwaggerDocument(o =>
             {
+                
                 o.Title = "ToDo App";
                 o.OperationProcessors.Add(new OperationSecurityScopeProcessor("Bearer"));
                 o.DocumentProcessors.Add(new SecurityDefinitionAppender("Bearer", new OpenApiSecurityScheme()
