@@ -28,7 +28,7 @@ steps:
     configuration: $(buildConfiguration)
     projects: '**/ToDoApp.Api.csproj'
     publishWebProjects: False
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\api'
+    arguments: '--runtime win-x86 --self-contained --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\api'
     zipAfterPublish: True
 
 - task: DotNetCoreCLI@2
@@ -44,7 +44,7 @@ steps:
     configuration: $(buildConfiguration)
     projects: '**/ToDoApp.Ui.csproj'
     publishWebProjects: False
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\ui'
+    arguments: '--runtime win-x86 --self-contained --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\ui'
     zipAfterPublish: True
     
 - task: PublishPipelineArtifact@1
