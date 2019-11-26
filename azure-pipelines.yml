@@ -20,22 +20,33 @@ steps:
     command: 'build'
     configuration: $(buildConfiguration)
     projects: '**/ToDoApp.Api.csproj'
-    arguments: '--output $(build.artifactstagingdirectory)\api --configuration Release'
-   
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'test'
+    command: 'publish'
+    configuration: $(buildConfiguration)
     projects: '**/ToDoApp.Api.csproj'
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\api'
+    zipAfterPublish: True
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     configuration: $(buildConfiguration)
-    projects: '**/ToDoApp.UI.csproj'
-    arguments: '--output $(build.artifactstagingdirectory)\ui --configuration Release'
+    projects: '**/ToDoApp.Web.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 
-
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    configuration: $(buildConfiguration)
+    projects: '**/ToDoApp.Web.csproj'
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\web'
+    zipAfterPublish: True
+    
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(build.artifactstagingdirectory)\api'
