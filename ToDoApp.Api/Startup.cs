@@ -50,7 +50,7 @@ namespace ToDoApp.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
-            services.AddPersistence();
+            services.AddPersistence(Configuration);
             services.AddInfrastructure();
             services.AddHealthChecks()
                 .AddDbContextCheck<ToDoDbContext>();

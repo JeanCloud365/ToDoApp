@@ -3,3 +3,4 @@ obj/
 /packages/
 /.vs
 /ToDoApp.UI/appsettings.local.json
+/ToDoApp.Api/appSettings.local.json
