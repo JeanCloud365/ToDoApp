@@ -41,3 +41,9 @@ steps:
     targetPath: '$(build.artifactstagingdirectory)\api'
     artifact: 'api'
     publishLocation: 'pipeline'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+   targetPath: '$(build.artifactstagingdirectory)\ui'
+   artifact: 'web'
+   publishLocation: 'pipeline'
