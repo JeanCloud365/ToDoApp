@@ -74,8 +74,8 @@ namespace ToDoApp.Api
                 {
                     o.PostProcess = s => { s.Host = Configuration["SwaggerHost"]; };
                 o.Title = "ToDo App";
-                o.OperationProcessors.Add(new OperationSecurityScopeProcessor("Bearer"));
-                o.DocumentProcessors.Add(new SecurityDefinitionAppender("Bearer", new OpenApiSecurityScheme()
+                o.OperationProcessors.Add(new OperationSecurityScopeProcessor("oauth2ImplicitSecurity"));
+                o.DocumentProcessors.Add(new SecurityDefinitionAppender("oauth2ImplicitSecurity", new OpenApiSecurityScheme()
                 {
                     Flow = OpenApiOAuth2Flow.Implicit,
                     AuthorizationUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/authorize",

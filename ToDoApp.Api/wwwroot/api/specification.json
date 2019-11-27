@@ -6,7 +6,6 @@
     "version": "1.0.0"
   },
   "host": "localhost:44301",
-  "basePath": "/api",
   "schemes": [
     "https"
   ],
@@ -33,7 +32,7 @@
         },
         "security": [
           {
-            "Bearer": []
+            "oauth2ImplicitSecurity": []
           }
         ]
       },
@@ -75,7 +74,7 @@
         },
         "security": [
           {
-            "Bearer": []
+            "oauth2ImplicitSecurity": []
           }
         ]
       },
@@ -108,7 +107,7 @@
         },
         "security": [
           {
-            "Bearer": []
+            "oauth2ImplicitSecurity": []
           }
         ]
       }
@@ -158,7 +157,7 @@
         },
         "security": [
           {
-            "Bearer": []
+            "oauth2ImplicitSecurity": []
           }
         ]
       }
@@ -202,7 +201,7 @@
         },
         "security": [
           {
-            "Bearer": []
+            "oauth2ImplicitSecurity": []
           }
         ]
       }
@@ -256,7 +255,7 @@
         },
         "security": [
           {
-            "Bearer": []
+            "oauth2ImplicitSecurity": []
           }
         ]
       },
@@ -291,7 +290,7 @@
         },
         "security": [
           {
-            "Bearer": []
+            "oauth2ImplicitSecurity": []
           }
         ]
       },
@@ -323,7 +322,7 @@
         },
         "security": [
           {
-            "Bearer": []
+            "oauth2ImplicitSecurity": []
           }
         ]
       }
@@ -350,7 +349,7 @@
         },
         "security": [
           {
-            "Bearer": []
+            "oauth2ImplicitSecurity": []
           }
         ]
       }
@@ -377,7 +376,7 @@
         },
         "security": [
           {
-            "Bearer": []
+            "oauth2ImplicitSecurity": []
           }
         ]
       }
@@ -580,7 +579,7 @@
     }
   },
   "securityDefinitions": {
-    "Bearer": {
+    "oauth2ImplicitSecurity": {
       "type": "oauth2",
       "in": "header",
       "flow": "implicit",
