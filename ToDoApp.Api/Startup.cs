@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -69,23 +70,31 @@ namespace ToDoApp.Api
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IToDoDbContext>());
 
             services.AddRazorPages();
+            var swaggerSecurity = new OpenApiSecurityScheme()
+            {
+                Flow = OpenApiOAuth2Flow.AccessCode,
+                AuthorizationUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/authorize",
+                Type = OpenApiSecuritySchemeType.OAuth2,
+                Scopes = new Dictionary<string, string>
+                    {{"https://appdatadev.onmicrosoft.com/todo/ReadAll", "Read All"}},
+                // Scheme = "Bearer",
+                // In = OpenApiSecurityApiKeyLocation.Header,
+                
+                TokenUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/token"
 
-            services.AddSwaggerDocument(o =>
+            };
+            services.AddOpenApiDocument(o =>
                 {
-                    o.PostProcess = s => { s.Host = Configuration["SwaggerHost"]; };
+                    o.PostProcess = s =>
+                    {
+                        s.Host = Configuration["SwaggerHost"];
+                        s.SecurityDefinitions.Add("oauth2",swaggerSecurity);
+
+                    };
                 o.Title = "ToDo App";
+                
                 o.OperationProcessors.Add(new OperationSecurityScopeProcessor("oauth2"));
-                o.DocumentProcessors.Add(new SecurityDefinitionAppender("oauth2", new OpenApiSecurityScheme()
-                {
-                    Flow = OpenApiOAuth2Flow.AccessCode,
-                    AuthorizationUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/authorize",
-                    Type = OpenApiSecuritySchemeType.OAuth2,
-                    Scopes = new Dictionary<string, string> { { "https://appdatadev.onmicrosoft.com/todo/ReadAll", "Read All" } },
-                    Scheme = "Bearer",
-                   // In = OpenApiSecurityApiKeyLocation.Header,
-                    TokenUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/token"
-
-                }));
+                //o.DocumentProcessors.Add(new SecurityDefinitionAppender("oauth2",swaggerSecurity));
             }
 
 
