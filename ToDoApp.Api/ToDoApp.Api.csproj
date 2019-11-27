@@ -4,6 +4,10 @@
         <TargetFramework>netcoreapp3.0</TargetFramework>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <DocumentationFile>ToDoApp.Api.xml</DocumentationFile>
+    </PropertyGroup>
+
 
     <ItemGroup>
       <PackageReference Include="FluentValidation" Version="8.5.1" />

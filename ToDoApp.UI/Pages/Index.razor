@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Authorization
 @using ToDoApp.Client
 @attribute [Authorize]
-@inject IItemsClient ItemsClient
+@inject IClient Client
 
 <table class="table">
     <thead>
@@ -52,7 +52,7 @@
 
     private async Task Refresh()
     {
-        var ret = (await ItemsClient.ListAsync());
+        var ret = (await Client.GetTodosAsync());
         items = ret?.Items ?? Enumerable.Empty<ListToDoItemsOfUserDto>();
     }
 
@@ -62,7 +62,7 @@
         var item = items.FirstOrDefault(o => o.Id.Equals(guid));
         var cmd = new UpdateToDoItemCommand(item.Description, new Guid(id), "Done", item.Title);
 
-        await ItemsClient.UpdateAsync(cmd);
+        await Client.UpdateTodoAsync(cmd);
         await Refresh();
     }
 
@@ -76,8 +76,8 @@
         try
         {
 
-            await ItemsClient.CreateAsync(new CreateToDoItemCommand(newDescription, newTitle));
-            items = (await ItemsClient.ListAsync()).Items;
+            await Client.CreateTodoAsync(new CreateToDoItemCommand(newDescription, newTitle));
+            items = (await Client.GetTodosAsync()).Items;
         }
         catch
         {

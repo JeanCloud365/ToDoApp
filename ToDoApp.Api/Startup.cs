@@ -105,6 +105,7 @@ namespace ToDoApp.Api
 
                     };
                     o.Title = "ToDo App";
+                    o.Description = "Yes...Another Todo App";
 
                     o.OperationProcessors.Add(new OperationSecurityScopeProcessor("oauth2code"));
                     //o.DocumentProcessors.Add(new SecurityDefinitionAppender("oauth2",swaggerSecurity));

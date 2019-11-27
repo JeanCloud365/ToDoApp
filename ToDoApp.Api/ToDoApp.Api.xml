@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ToDoApp.Api</name>
+    </assembly>
+    <members>
+        <member name="M:ToDoApp.Api.Controllers.Admin.ItemsController.List">
+            <summary>
+            Lists all todo items (admin permissions required)
+            </summary>
+            
+        </member>
+        <member name="M:ToDoApp.Api.Controllers.Admin.UsersController.List">
+            <summary>
+            Shows all todo users (admin permissions required)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ToDoApp.Api.Controllers.ItemsController.List">
+            <summary>
+            List my todo items
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ToDoApp.Api.Controllers.ItemsController.Get(System.String)">
+            <summary>
+            Retrieves a single todo
+            </summary>
+            <param name="id">The id of the todo to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:ToDoApp.Api.Controllers.ItemsController.Create(ToDoApp.Application.ToDoItems.Commands.CreateToDoItem.CreateToDoItemCommand)">
+            <summary>
+            Creates a new todo
+            </summary>
+        </member>
+        <member name="M:ToDoApp.Api.Controllers.ItemsController.Update(ToDoApp.Application.ToDoItems.Commands.UpdateToDoItem.UpdateToDoItemCommand)">
+            <summary>
+            Update an existing todo item
+            </summary>
+        </member>
+        <member name="M:ToDoApp.Api.Controllers.WebhookController.Create(ToDoApp.Application.ToDoUsers.Commands.AddToDoUserWebhook.AddToDoUserWebhookCommand)">
+            <summary>
+            Register a webhook for todo creations and updates
+            </summary>
+        </member>
+        <member name="M:ToDoApp.Api.Controllers.WebhookController.Delete">
+            <summary>
+            Remove a webhook
+            </summary>
+        </member>
+        <member name="M:ToDoApp.Api.Controllers.WebhookController.Get">
+            <summary>
+            Retrieve current webhook
+            </summary>
+        </member>
+    </members>
+</doc>

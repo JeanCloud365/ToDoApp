@@ -68,14 +68,16 @@ namespace ToDoApp.UI
                         OnTicketReceived = new Func<TicketReceivedContext, Task>(async o =>
                         {
                             var token = o.Properties.GetTokenValue("access_token");
-                            using HttpClient httpClient = new HttpClient()
+                            using (HttpClient httpClient = new HttpClient()
                             {
                                 BaseAddress = new Uri(api),
                                 DefaultRequestHeaders = {Authorization = new AuthenticationHeaderValue("Bearer", token)}
-                            };
-                            var client = new UsersClient(httpClient);
 
-                            await client.CreateAsync(new CreateToDoUserCommand());
+                            })
+                            {
+                                await httpClient.PostAsync(api + "/api/users",new StringContent(""));
+                            } ;
+
                         })
                     };
                     
@@ -89,16 +91,11 @@ namespace ToDoApp.UI
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
           
-            services.AddHttpClient<IItemsClient,ItemsClient>(async (serviceProvider, client) =>
+            services.AddHttpClient<IClient,Client.Client>(async (serviceProvider, client) =>
                 {
                     client = await GenerateAuthenticatedClient(serviceProvider, client, api);
                 });
             
-            services.AddHttpClient<IUsersClient,UsersClient>(async (serviceProvider, client) =>
-            {
-                client = await GenerateAuthenticatedClient(serviceProvider, client, api);
-
-            });
             
 
             services.AddRazorPages();
