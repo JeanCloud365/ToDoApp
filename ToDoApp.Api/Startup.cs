@@ -151,7 +151,6 @@ namespace ToDoApp.Api
                     settings.DocumentPath = "api/specification.json";  // Enable when NSwag.MSBuild is upgraded to .NET Core 3.0
                     settings.OAuth2Client = new OAuth2ClientSettings();
                     settings.OAuth2Client.ClientId = "80036b40-f42b-4e8a-834b-08165b90d1b9";
-
                     //settings.OAuth2Client.ClientSecret = ";DK5[7du(disNU:vM,2%}-=I";
                     //settings.OAuth2Client.Realm =
                     //  "https://login.microsoftonline.com/tfp/b6110487-86e3-418f-aba6-7f26f3bccc48/B2C_1_SignUpSignIn/v2.0/";
