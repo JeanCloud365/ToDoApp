@@ -72,15 +72,28 @@ namespace ToDoApp.Api
             services.AddRazorPages();
             var swaggerSecurity = new OpenApiSecurityScheme()
             {
-                Flow = OpenApiOAuth2Flow.AccessCode,
-                AuthorizationUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/authorize",
+
+                Flows = new OpenApiOAuthFlows()
+                {
+                    AuthorizationCode = new OpenApiOAuthFlow()
+                    {
+                        AuthorizationUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/authorize",
+                        TokenUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/token",
+                        RefreshUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/token",
+                        Scopes = new Dictionary<string, string>
+                        {
+                            {"https://appdatadev.onmicrosoft.com/todo/ReadAll", "Read All"},
+                            {"offline_access","offline_access"},
+                            { "email","email"}
+                        },
+                    }
+                },
+
+
                 Type = OpenApiSecuritySchemeType.OAuth2,
-                Scopes = new Dictionary<string, string>
-                    {{"https://appdatadev.onmicrosoft.com/todo/ReadAll", "Read All"}},
-                // Scheme = "Bearer",
-                // In = OpenApiSecurityApiKeyLocation.Header,
-                
-                TokenUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/token"
+
+
+
 
             };
             services.AddOpenApiDocument(o =>
@@ -88,14 +101,14 @@ namespace ToDoApp.Api
                     o.PostProcess = s =>
                     {
                         s.Host = Configuration["SwaggerHost"];
-                        s.SecurityDefinitions.Add("oauth2",swaggerSecurity);
+                        s.SecurityDefinitions.Add("oauth2code", swaggerSecurity);
 
                     };
-                o.Title = "ToDo App";
-                
-                o.OperationProcessors.Add(new OperationSecurityScopeProcessor("oauth2"));
-                //o.DocumentProcessors.Add(new SecurityDefinitionAppender("oauth2",swaggerSecurity));
-            }
+                    o.Title = "ToDo App";
+
+                    o.OperationProcessors.Add(new OperationSecurityScopeProcessor("oauth2code"));
+                    //o.DocumentProcessors.Add(new SecurityDefinitionAppender("oauth2",swaggerSecurity));
+                }
 
 
             );
