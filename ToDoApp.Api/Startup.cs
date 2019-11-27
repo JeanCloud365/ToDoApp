@@ -81,7 +81,7 @@ namespace ToDoApp.Api
                     AuthorizationUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/authorize",
                     Type = OpenApiSecuritySchemeType.OAuth2,
                     Scopes = new Dictionary<string, string> { { "https://appdatadev.onmicrosoft.com/todo/ReadAll", "Read All" } },
-                    Scheme = "Bearer",
+                   // Scheme = "Bearer",
                    // In = OpenApiSecurityApiKeyLocation.Header,
                     TokenUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/token"
 
