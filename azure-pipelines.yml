@@ -29,7 +29,7 @@ steps:
     projects: '**/ToDoApp.Api.csproj'
     publishWebProjects: False
     arguments: '--runtime win-x86 --self-contained --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\api'
-    zipAfterPublish: True
+    zipAfterPublish: False
 
 - task: DotNetCoreCLI@2
   inputs:
