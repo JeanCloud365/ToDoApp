@@ -74,16 +74,16 @@ namespace ToDoApp.Api
                 {
                     o.PostProcess = s => { s.Host = Configuration["SwaggerHost"]; };
                 o.Title = "ToDo App";
-                o.OperationProcessors.Add(new OperationSecurityScopeProcessor("oauth2ImplicitSecurity"));
-                o.DocumentProcessors.Add(new SecurityDefinitionAppender("oauth2ImplicitSecurity", new OpenApiSecurityScheme()
+                o.OperationProcessors.Add(new OperationSecurityScopeProcessor("oauth2"));
+                o.DocumentProcessors.Add(new SecurityDefinitionAppender("oauth2", new OpenApiSecurityScheme()
                 {
-                    Flow = OpenApiOAuth2Flow.Implicit,
+                    Flow = OpenApiOAuth2Flow.AccessCode,
                     AuthorizationUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/authorize",
                     Type = OpenApiSecuritySchemeType.OAuth2,
                     Scopes = new Dictionary<string, string> { { "https://appdatadev.onmicrosoft.com/todo/ReadAll", "Read All" } },
                     Scheme = "Bearer",
                    // In = OpenApiSecurityApiKeyLocation.Header,
-                    //TokenUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/token"
+                    TokenUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/token"
 
                 }));
             }
