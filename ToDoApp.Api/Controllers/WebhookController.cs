@@ -21,6 +21,7 @@ namespace ToDoApp.Api.Controllers
         /// <summary>
         /// Register a webhook for todo creations and updates
         /// </summary>
+        /// <param name="webhookUrl">The callback url of the webhook</param>
         [HttpPost()]
         [OpenApiOperation("createWebhook")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -28,6 +29,7 @@ namespace ToDoApp.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Create(AddToDoUserWebhookCommand command)
         {
+            
             await Mediator.Send(command);
             return CreatedAtAction("Delete", null);
         }

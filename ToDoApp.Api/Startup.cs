@@ -96,11 +96,16 @@ namespace ToDoApp.Api
 
 
             };
-            services.AddOpenApiDocument(o =>
+            services.AddSwaggerDocument(o =>
                 {
                     o.PostProcess = s =>
                     {
                         s.Host = Configuration["SwaggerHost"];
+                        s.BasePath = "/";
+                        s.Schemes = new List<OpenApiSchema>()
+                        {
+                            OpenApiSchema.Https
+                        };
                         s.SecurityDefinitions.Add("oauth2code", swaggerSecurity);
 
                     };

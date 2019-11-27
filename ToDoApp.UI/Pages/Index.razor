@@ -60,9 +60,9 @@
     {
         var guid = new Guid(id);
         var item = items.FirstOrDefault(o => o.Id.Equals(guid));
-        var cmd = new UpdateToDoItemCommand(item.Description, new Guid(id), "Done", item.Title);
+     
 
-        await Client.UpdateTodoAsync(cmd);
+        await Client.UpdateTodoAsync(new UpdateToDoItemCommand(item.Description, guid, "Done",item.Title));
         await Refresh();
     }
 
@@ -76,7 +76,7 @@
         try
         {
 
-            await Client.CreateTodoAsync(new CreateToDoItemCommand(newDescription, newTitle));
+            await Client.CreateTodoAsync(new CreateToDoItemCommand(newDescription,newTitle));
             items = (await Client.GetTodosAsync()).Items;
         }
         catch

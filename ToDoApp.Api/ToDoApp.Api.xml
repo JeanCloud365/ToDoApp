@@ -23,26 +23,35 @@
             <returns></returns>
         </member>
         <member name="M:ToDoApp.Api.Controllers.ItemsController.Get(System.String)">
-            <summary>
-            Retrieves a single todo
-            </summary>
-            <param name="id">The id of the todo to retrieve</param>
-            <returns></returns>
+             <summary>
+             Retrieves a single todo
+             </summary>
+             <param name="id">The id of the todo to retrieve</param>
+             <example>
+            
+             </example>
         </member>
         <member name="M:ToDoApp.Api.Controllers.ItemsController.Create(ToDoApp.Application.ToDoItems.Commands.CreateToDoItem.CreateToDoItemCommand)">
             <summary>
             Creates a new todo
             </summary>
+            <param name="title">Title of the new todo</param>
+            <param name="description">Description of the new todo</param>
         </member>
         <member name="M:ToDoApp.Api.Controllers.ItemsController.Update(ToDoApp.Application.ToDoItems.Commands.UpdateToDoItem.UpdateToDoItemCommand)">
             <summary>
             Update an existing todo item
             </summary>
+            <param name="id">Id of the todo to update</param>
+            <param name="title">new title</param>
+            <param name="description">new description</param>
+            <param name="status">new status</param>
         </member>
         <member name="M:ToDoApp.Api.Controllers.WebhookController.Create(ToDoApp.Application.ToDoUsers.Commands.AddToDoUserWebhook.AddToDoUserWebhookCommand)">
             <summary>
             Register a webhook for todo creations and updates
             </summary>
+            <param name="webhookUrl">The callback url of the webhook</param>
         </member>
         <member name="M:ToDoApp.Api.Controllers.WebhookController.Delete">
             <summary>

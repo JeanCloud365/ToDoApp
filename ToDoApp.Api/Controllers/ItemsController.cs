@@ -13,6 +13,7 @@ using ToDoApp.Application.ToDoItems.Commands.CreateToDoItem;
 using ToDoApp.Application.ToDoItems.Commands.UpdateToDoItem;
 using ToDoApp.Application.ToDoItems.Queries.GetToDoItem;
 using ToDoApp.Application.ToDoItems.Queries.ListToDoItemsOfUser;
+using ToDoApp.Domain.Enumerations;
 
 namespace ToDoApp.Api.Controllers
 {
@@ -33,7 +34,9 @@ namespace ToDoApp.Api.Controllers
         /// Retrieves a single todo
         /// </summary>
         /// <param name="id">The id of the todo to retrieve</param>
-        /// <returns></returns>
+        /// <example>
+        ///
+        /// </example>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -50,22 +53,30 @@ namespace ToDoApp.Api.Controllers
         /// <summary>
         /// Creates a new todo
         /// </summary>
+        /// <param name="title">Title of the new todo</param>
+        /// <param name="description">Description of the new todo</param>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [OpenApiOperation("createTodo")]
         public async Task<ActionResult<CreateToDoItemViewModel>> Create(CreateToDoItemCommand command)
         {
+           
             return Ok(await Mediator.Send(command));
         }
 
         /// <summary>
         /// Update an existing todo item
         /// </summary>
+        /// <param name="id">Id of the todo to update</param>
+        /// <param name="title">new title</param>
+        /// <param name="description">new description</param>
+        /// <param name="status">new status</param>
         [OpenApiOperation("updateTodo")]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update(UpdateToDoItemCommand command)
         {
+            
             await Mediator.Send(command);
             return Ok();
         }
