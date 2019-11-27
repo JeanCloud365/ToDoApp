@@ -82,7 +82,7 @@ namespace ToDoApp.Api
                     Type = OpenApiSecuritySchemeType.OAuth2,
                     Scopes = new Dictionary<string, string> { { "https://appdatadev.onmicrosoft.com/todo/ReadAll", "Read All" } },
                     Scheme = "Bearer",
-                    Name = "Bearer",
+                    In = OpenApiSecurityApiKeyLocation.Header,
                     TokenUrl = "https://login.microsoftonline.com/appdatadev.onmicrosoft.com/oauth2/v2.0/token"
 
                 }));
