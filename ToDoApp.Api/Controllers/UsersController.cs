@@ -19,9 +19,9 @@ namespace ToDoApp.Api.Controllers
         [OpenApiIgnore]
         [ProducesResponseType(StatusCodes.Status200OK)]
        
-        public async Task<ActionResult<ListToDoUsersViewModel>> Create(CreateToDoUserCommand command)
+        public async Task<ActionResult<ListToDoUsersViewModel>> Create()
         {
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(new CreateToDoUserCommand()));
         }
         
       

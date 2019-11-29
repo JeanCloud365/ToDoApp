@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 
@@ -75,7 +76,7 @@ namespace ToDoApp.UI
 
                             })
                             {
-                                await httpClient.PostAsync(api + "/api/users",new StringContent(""));
+                                var resp = await httpClient.PostAsync(api + "/api/users",new StringContent("",Encoding.UTF8,"application/json"));
                             } ;
 
                         })
