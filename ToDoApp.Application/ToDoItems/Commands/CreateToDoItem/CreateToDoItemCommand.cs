@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using ToDoApp.Application.Common.Exceptions;
 using ToDoApp.Application.Common.Interfaces;
 using ToDoApp.Application.Notifications.Models;
 using ToDoApp.Domain.Entities;
@@ -30,7 +31,7 @@ namespace ToDoApp.Application.ToDoItems.Commands.CreateToDoItem
                 var user = await _toDoDbContext.ToDoUsers.FindAsync(_currentUser.Id);
                 if (user == null)
                 {
-                    
+                    throw new AccessDeniedException("Invalid User");
                 }
 
                 var entity = new ToDoItem()
