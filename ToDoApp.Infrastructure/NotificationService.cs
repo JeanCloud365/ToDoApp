@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using ToDoApp.Application.Common.Interfaces;
+using ToDoApp.Application.Notifications.Interfaces;
 using ToDoApp.Application.Notifications.Models;
 
 namespace ToDoApp.Infrastructure
@@ -24,7 +25,7 @@ namespace ToDoApp.Infrastructure
             _logger = logger;
         }
 
-        public async Task Notify(BaseNotification notification)
+        public async Task Notify(INotification notification)
         {
             var user = await _toDoDbContext.ToDoUsers.FindAsync(notification.UserId);
             if (user == null || user?.WebhookUrl == null)
