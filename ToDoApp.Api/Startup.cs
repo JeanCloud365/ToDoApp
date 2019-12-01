@@ -88,7 +88,7 @@ namespace ToDoApp.Api
 
                 Flows = new OpenApiOAuthFlows()
                 {
-                    Implicit = swaggerOAuthFlow,
+                  //  Implicit = swaggerOAuthFlow,
                     AuthorizationCode = swaggerOAuthFlow
                 },
 
