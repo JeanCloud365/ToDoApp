@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using ToDoApp.Application.Common.Interfaces;
 using ToDoApp.Application.Notifications.Interfaces;
 using ToDoApp.Application.Notifications.Models;
@@ -38,7 +39,7 @@ namespace ToDoApp.Infrastructure
 
                 await _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Post, user.WebhookUrl)
                 {
-                    Content = new StringContent(JsonSerializer.Serialize(notification),Encoding.UTF8,"application/json")
+                    Content = new StringContent(JsonConvert.SerializeObject(notification),Encoding.UTF8,"application/json")
                 });
             }
             catch(Exception ex)
