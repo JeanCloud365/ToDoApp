@@ -71,23 +71,25 @@ namespace ToDoApp.Api
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IToDoDbContext>());
 
             services.AddRazorPages();
+            var swaggerOAuthFlow = new OpenApiOAuthFlow()
+            {
+                AuthorizationUrl = "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/authorize",
+                TokenUrl = "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/token",
+                RefreshUrl = "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/token",
+                Scopes = new Dictionary<string, string>
+                {
+                    {"https://appdatadev.onmicrosoft.com/todo/ReadAll", "Read All"},
+                    {"offline_access","offline_access"},
+                    { "email","email"}
+                }
+            };
             var swaggerSecurity = new OpenApiSecurityScheme()
             {
 
                 Flows = new OpenApiOAuthFlows()
                 {
-                    AuthorizationCode = new OpenApiOAuthFlow()
-                    {
-                        AuthorizationUrl = "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/authorize",
-                        TokenUrl = "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/token",
-                        RefreshUrl = "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/token",
-                        Scopes = new Dictionary<string, string>
-                        {
-                            {"https://appdatadev.onmicrosoft.com/todo/ReadAll", "Read All"},
-                            {"offline_access","offline_access"},
-                            { "email","email"}
-                        },
-                    }
+                    Implicit = swaggerOAuthFlow,
+                    AuthorizationCode = swaggerOAuthFlow
                 },
 
 
