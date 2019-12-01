@@ -71,17 +71,27 @@ namespace ToDoApp.Api
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IToDoDbContext>());
 
             services.AddRazorPages();
-            var swaggerOAuthFlow = new OpenApiOAuthFlow()
+            string authorizationUrl = "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/authorize";
+            string tokenUrl =
+                "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/token";
+            var scopes = new Dictionary<string, string>
             {
-                AuthorizationUrl = "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/authorize",
-                TokenUrl = "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/token",
-                RefreshUrl = "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/token",
-                Scopes = new Dictionary<string, string>
-                {
-                    {"https://appdatadev.onmicrosoft.com/todo/ReadAll", "Read All"},
-                    {"offline_access","offline_access"},
-                    { "email","email"}
-                }
+                {"https://appdatadev.onmicrosoft.com/todo/ReadAll", "Read All"},
+                {"offline_access", "offline_access"},
+                {"email", "email"}
+            };
+            var swaggerOAuthCodeFlow = new OpenApiOAuthFlow()
+            {
+                AuthorizationUrl = authorizationUrl,
+                TokenUrl = tokenUrl,
+                RefreshUrl = tokenUrl,
+                Scopes = scopes
+            };
+            var swaggerOAuthImplicitFlow = new OpenApiOAuthFlow()
+            {
+                AuthorizationUrl = authorizationUrl,
+               
+                Scopes = scopes
             };
             var swaggerSecurityCode = new OpenApiSecurityScheme()
             {
@@ -89,7 +99,7 @@ namespace ToDoApp.Api
                 Flows = new OpenApiOAuthFlows()
                 {
                    
-                    AuthorizationCode = swaggerOAuthFlow,
+                    AuthorizationCode = swaggerOAuthCodeFlow,
                    // Implicit = swaggerOAuthFlow
                 },
 
@@ -107,7 +117,7 @@ namespace ToDoApp.Api
                 {
 
                    // AuthorizationCode = swaggerOAuthFlow,
-                    Implicit = swaggerOAuthFlow
+                    Implicit = swaggerOAuthImplicitFlow
                 },
 
 
