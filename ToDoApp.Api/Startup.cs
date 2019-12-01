@@ -83,7 +83,7 @@ namespace ToDoApp.Api
                     { "email","email"}
                 }
             };
-            var swaggerSecurity = new OpenApiSecurityScheme()
+            var swaggerSecurityCode = new OpenApiSecurityScheme()
             {
 
                 Flows = new OpenApiOAuthFlows()
@@ -100,7 +100,7 @@ namespace ToDoApp.Api
 
 
             };
-            var swaggerSecurity2 = new OpenApiSecurityScheme()
+            var swaggerSecurityImplicit = new OpenApiSecurityScheme()
             {
 
                 Flows = new OpenApiOAuthFlows()
@@ -127,8 +127,8 @@ namespace ToDoApp.Api
                         {
                             OpenApiSchema.Https
                         };
-                        s.SecurityDefinitions.Add("oauth2code", swaggerSecurity);
-                        s.SecurityDefinitions.Add("oauth2implicit", swaggerSecurity2);
+                        s.SecurityDefinitions.Add("oauth2code", swaggerSecurityCode);
+                        s.SecurityDefinitions.Add("oauth2implicit", swaggerSecurityImplicit);
 
                     };
                     o.Title = "ToDo App";
