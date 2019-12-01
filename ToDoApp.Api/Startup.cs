@@ -88,8 +88,26 @@ namespace ToDoApp.Api
 
                 Flows = new OpenApiOAuthFlows()
                 {
-                  //  Implicit = swaggerOAuthFlow,
-                    AuthorizationCode = swaggerOAuthFlow
+                   
+                    AuthorizationCode = swaggerOAuthFlow,
+                   // Implicit = swaggerOAuthFlow
+                },
+
+
+                Type = OpenApiSecuritySchemeType.OAuth2,
+
+
+
+
+            };
+            var swaggerSecurity2 = new OpenApiSecurityScheme()
+            {
+
+                Flows = new OpenApiOAuthFlows()
+                {
+
+                   // AuthorizationCode = swaggerOAuthFlow,
+                    Implicit = swaggerOAuthFlow
                 },
 
 
@@ -110,12 +128,14 @@ namespace ToDoApp.Api
                             OpenApiSchema.Https
                         };
                         s.SecurityDefinitions.Add("oauth2code", swaggerSecurity);
+                        s.SecurityDefinitions.Add("oauth2implicit", swaggerSecurity2);
 
                     };
                     o.Title = "ToDo App";
                     o.Description = "Yes...Another Todo App";
 
                     o.OperationProcessors.Add(new OperationSecurityScopeProcessor("oauth2code"));
+                    o.OperationProcessors.Add(new OperationSecurityScopeProcessor("oauth2implicit"));
                     //o.DocumentProcessors.Add(new SecurityDefinitionAppender("oauth2",swaggerSecurity));
                 }
 
