@@ -29,7 +29,7 @@ shared ToDoApp.PowerBiConnector.Contents = (optional message as text) =>
        
         //token = if (credential[AuthenticationKind] = "Key") then credential[Key] else credential[access_token],        
        // headers = [ Authorization = "Bearer " & token ],
-        navTable = OpenApi.Document(Web.Contents("http://jvm-todo-api.azurewebsites.net/swagger/v1/swagger.json"), [ Headers = headers, ManualCredentials = true ])
+        navTable = OpenApi.Document(Web.Contents("http://jvm-todo-api.azurewebsites.net/api/specification.json"), [ Headers = headers, ManualCredentials = true ])
  
     
 in
