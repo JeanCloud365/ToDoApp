@@ -9,12 +9,12 @@ using ToDoApp.Application.Notifications.Models;
 
 namespace ToDoApp.Application.ToDoItems.Commands.CreateToDoItem
 {
-    public class ToDoItemUpdated:INotification
+    public class ToDoItemCreated:INotification
     {
         public Guid UserId { get; set; }
         public Guid ToDoId { get; set; }
 
-        public class Handler:INotificationHandler<ToDoItemUpdated>
+        public class Handler:INotificationHandler<ToDoItemCreated>
         {
             private readonly INotificationService _notificationService;
 
@@ -24,7 +24,7 @@ namespace ToDoApp.Application.ToDoItems.Commands.CreateToDoItem
             }
 
 
-            public async Task Handle(ToDoItemUpdated notification, CancellationToken cancellationToken)
+            public async Task Handle(ToDoItemCreated notification, CancellationToken cancellationToken)
             {
                 await _notificationService.Notify(new TodoCreatedNotificationDto()
                 {

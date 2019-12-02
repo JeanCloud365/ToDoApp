@@ -42,7 +42,7 @@ namespace ToDoApp.Application.ToDoItems.Commands.CreateToDoItem
                 };
                 var createdTodoItem = _toDoDbContext.ToDoItems.Add(entity);
                 await _toDoDbContext.SaveChangesAsync(cancellationToken);
-                await _mediator.Publish(new ToDoItemUpdated()
+                await _mediator.Publish(new ToDoItemCreated()
                 {
                     ToDoId = entity.Id,
                     UserId = user.Id

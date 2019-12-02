@@ -42,7 +42,7 @@ namespace ToDoApp.Api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [OpenApiOperation("getTodoById")]
-        public async Task<ActionResult<ListToDoItemsOfUserViewModel>> Get(string id)
+        public async Task<ActionResult<GetToDoItemViewModel>> Get(string id)
         {
             return Ok(await Mediator.Send(new GetToDoItemQuery
             {

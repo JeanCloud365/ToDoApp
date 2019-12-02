@@ -47,13 +47,13 @@ namespace ToDoApp.Client
         /// <summary>Retrieves a single todo</summary>
         /// <param name="id">The id of the todo to retrieve</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ListToDoItemsOfUserViewModel> GetTodoByIdAsync(string id);
+        System.Threading.Tasks.Task<GetToDoItemViewModel> GetTodoByIdAsync(string id);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Retrieves a single todo</summary>
         /// <param name="id">The id of the todo to retrieve</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ListToDoItemsOfUserViewModel> GetTodoByIdAsync(string id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<GetToDoItemViewModel> GetTodoByIdAsync(string id, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Register a webhook for todo creations and updates</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -332,7 +332,7 @@ namespace ToDoApp.Client
         /// <summary>Retrieves a single todo</summary>
         /// <param name="id">The id of the todo to retrieve</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<ListToDoItemsOfUserViewModel> GetTodoByIdAsync(string id)
+        public System.Threading.Tasks.Task<GetToDoItemViewModel> GetTodoByIdAsync(string id)
         {
             return GetTodoByIdAsync(id, System.Threading.CancellationToken.None);
         }
@@ -341,7 +341,7 @@ namespace ToDoApp.Client
         /// <summary>Retrieves a single todo</summary>
         /// <param name="id">The id of the todo to retrieve</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<ListToDoItemsOfUserViewModel> GetTodoByIdAsync(string id, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<GetToDoItemViewModel> GetTodoByIdAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/Items/{id}");
@@ -375,7 +375,7 @@ namespace ToDoApp.Client
                         var status_ = ((int)response_.StatusCode).ToString();
                         if (status_ == "200") 
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ListToDoItemsOfUserViewModel>(response_, headers_).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<GetToDoItemViewModel>(response_, headers_).ConfigureAwait(false);
                             return objectResponse_.Object;
                         }
                         else
@@ -397,7 +397,7 @@ namespace ToDoApp.Client
                             throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
                         }
             
-                        return default(ListToDoItemsOfUserViewModel);
+                        return default(GetToDoItemViewModel);
                     }
                     finally
                     {
@@ -894,6 +894,44 @@ namespace ToDoApp.Client
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.Guid Id { get; }
+    
+        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Title { get; }
+    
+        [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Description { get; }
+    
+        [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Status { get; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class GetToDoItemViewModel 
+    {
+        [Newtonsoft.Json.JsonConstructor]
+        public GetToDoItemViewModel(GetToDoItemDto @item)
+        {
+            this.Item = @item;
+        }
+    
+        [Newtonsoft.Json.JsonProperty("item", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GetToDoItemDto Item { get; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.27.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class GetToDoItemDto 
+    {
+        [Newtonsoft.Json.JsonConstructor]
+        public GetToDoItemDto(string @description, string @status, string @title)
+        {
+            this.Title = @title;
+            this.Description = @description;
+            this.Status = @status;
+        }
     
         [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Title { get; }
