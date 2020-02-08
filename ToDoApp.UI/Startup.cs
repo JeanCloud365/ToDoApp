@@ -84,13 +84,13 @@ namespace ToDoApp.UI
                     
 
                 });
-            services.AddMvcCore(options =>
+         /*   services.AddMvcCore(options =>
             {
                 var policy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
-            });
+            }); */
           
             services.AddHttpClient<IClient,Client.Client>(async (serviceProvider, client) =>
                 {
@@ -141,6 +141,7 @@ namespace ToDoApp.UI
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");

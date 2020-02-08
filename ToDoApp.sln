@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.UI", "ToDoApp.UI\To
 EndProject
 Project("{4DF76451-A46A-4C0B-BE03-459FAAFA07E6}") = "ToDoApp.PowerBiConnector", "ToDoApp.PowerBiConnector\ToDoApp.PowerBiConnector.mproj", "{3E988BA0-D34A-4D34-B90A-5C68A9B99B52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Infrastructure", "ToDoApp.Infrastructure\ToDoApp.Infrastructure.csproj", "{A24FB876-1055-4CA0-9285-A6B89D5A37DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Infrastructure", "ToDoApp.Infrastructure\ToDoApp.Infrastructure.csproj", "{A24FB876-1055-4CA0-9285-A6B89D5A37DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

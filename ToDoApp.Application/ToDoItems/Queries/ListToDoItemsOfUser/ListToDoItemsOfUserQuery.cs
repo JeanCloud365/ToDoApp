@@ -20,7 +20,7 @@ namespace ToDoApp.Application.ToDoItems.Queries.ListToDoItemsOfUser
             }
             public async Task<ListToDoItemsOfUserViewModel> Handle(ListToDoItemsOfUserQuery request, CancellationToken cancellationToken)
             {
-                var todos = _toDoDbContext.ToDoItems.Where(a => a.User.Id.Equals(_currentUser.Id)).Select(o => new ListToDoItemsOfUserDto()
+                var todos = _toDoDbContext.ToDoItems.Where(a => a.Owner.Id.Equals(_currentUser.Id)).Select(o => new ListToDoItemsOfUserDto()
                 {
                     Description = o.Description,
                     Status = o.Status.Name,

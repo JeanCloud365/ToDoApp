@@ -27,7 +27,7 @@ namespace ToDoApp.Application.ToDoItems.Queries.GetToDoItem
             }
             public async Task<GetToDoItemViewModel> Handle(GetToDoItemQuery request, CancellationToken cancellationToken)
             {
-                var todoItem = await _toDoDbContext.ToDoItems.Include(o => o.User).FirstOrDefaultAsync(o => o.Id.Equals(request.ItemId),cancellationToken);
+                var todoItem = await _toDoDbContext.ToDoItems.Include(o => o.Owner).FirstOrDefaultAsync(o => o.Id.Equals(request.ItemId),cancellationToken);
 
                 if(todoItem == null)
                 {
@@ -35,7 +35,7 @@ namespace ToDoApp.Application.ToDoItems.Queries.GetToDoItem
 
                 }
                 
-                if (!todoItem.User.Id.Equals(_currentUserService.Id))
+                if (!todoItem.Owner.Id.Equals(_currentUserService.Id))
                 {
                     throw new AccessDeniedException("Item not of user");
                 }

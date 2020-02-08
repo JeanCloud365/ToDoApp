@@ -24,8 +24,7 @@ namespace ToDoApp.Application.ToDoItems.Queries.ListToDoItems
                 {
                     Description = o.Description,
                     Status = o.Status.Name,
-                    Title = o.Title,
-                    User = o.User.Name
+                    Title = o.Title
                 });
                 
                 return new ListToDoItemsViewModel()

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using ToDoApp.Application.Common.Exceptions;
 using ToDoApp.Application.Common.Interfaces;
 using ToDoApp.Application.ToDoUsers.Commands.AddToDoUserWebhook;
@@ -10,6 +12,8 @@ namespace ToDoApp.Application.ToDoUsers.Commands.RemoveToDoUserWebhook
 {
     public class RemoveToDoUserWebhookCommand:IRequest
     {
+
+        public Guid Id { get; set; }
        
 
         public class Handler : IRequestHandler<RemoveToDoUserWebhookCommand, Unit>
@@ -24,7 +28,7 @@ namespace ToDoApp.Application.ToDoUsers.Commands.RemoveToDoUserWebhook
             }
             public async Task<Unit> Handle(RemoveToDoUserWebhookCommand request, CancellationToken cancellationToken)
             {
-                var todoUser = await _toDoDbContext.ToDoUsers.FindAsync(_currentUserService.Id);
+                var todoUser = await _toDoDbContext.ToDoUsers.Include(o => o.Webhooks).FirstOrDefaultAsync(o => o.Id.Equals(_currentUserService.Id),cancellationToken);
 
                 if (todoUser == null)
                 {
@@ -36,7 +40,14 @@ namespace ToDoApp.Application.ToDoUsers.Commands.RemoveToDoUserWebhook
                     throw new AccessDeniedException("User not current user");
                 }
 
-                todoUser.WebhookUrl = null;
+                var webhook = todoUser.Webhooks.FirstOrDefault(o => o.Id.Equals(request.Id));
+
+                if(webhook == null)
+                {
+                    throw new ItemNotFoundException("Webhook not found");
+                }
+
+                todoUser.Webhooks.Remove(webhook);
 
                 _toDoDbContext.ToDoUsers.Update(todoUser);
 

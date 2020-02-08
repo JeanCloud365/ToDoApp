@@ -1,6 +1,7 @@
 using System;
 using System.Security.Claims;
 using System.Security.Principal;
+using Microsoft.AspNetCore.Http;
 using ToDoApp.Application.Common.Interfaces;
 
 namespace ToDoApp.Api.Services
@@ -9,17 +10,17 @@ namespace ToDoApp.Api.Services
     {
         private readonly ClaimsPrincipal _principal;
 
-        public CurrentUserService(IPrincipal principal)
+        public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
-            _principal = principal as ClaimsPrincipal;
-            this.Id = new Guid(_principal
+            _principal = httpContextAccessor?.HttpContext?.User;
+            this.Id = new Guid(_principal?
                                    .FindFirst(o =>
-                                       o.Type.Equals("http://schemas.microsoft.com/identity/claims/objectidentifier"))
+                                       o.Type.Equals("http://schemas.microsoft.com/identity/claims/objectidentifier"))?
                                    .Value ?? Guid.Empty.ToString());
-            this.Mail = this.Name = _principal
-                .FindFirst(o => o.Type.Equals("emails")).Value;
-            this.Name = _principal
-                .FindFirst(o => o.Type.Equals("name")).Value;
+            this.Mail = this.Name = _principal?
+                .FindFirst(o => o.Type.Equals("emails"))?.Value;
+            this.Name = _principal?
+                .FindFirst(o => o.Type.Equals("name"))?.Value;
         }
 
         public CurrentUserService() { }

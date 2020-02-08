@@ -6,7 +6,7 @@ namespace ToDoApp.Application.ToDoUsers.Commands.RemoveToDoUserWebhook
     {
         public RemoveToDoUserWebhookCommandValidator()
         {
-         
+            RuleFor(o => o.Id).NotEmpty().NotNull();
         }
     }
 }

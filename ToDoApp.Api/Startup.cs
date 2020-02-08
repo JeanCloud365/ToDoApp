@@ -22,6 +22,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using NJsonSchema;
 using NSwag;
 using NSwag.AspNetCore;
 using NSwag.Generation.Processors.Security;
@@ -32,7 +33,7 @@ using ToDoApp.Application.Common.Interfaces;
 using ToDoApp.Application.ToDoUsers.Commands.CreateToDoUser;
 using ToDoApp.Application.ToDoUsers.Queries.ListToDoUsers;
 using ToDoApp.Infrastructure;
-using ToDoApp.Persistence;
+using ToDoApp.Infrastructure.Persistence;
 using AuthenticationOptions = ToDoApp.Api.Common.AuthenticationOptions;
 
 namespace ToDoApp.Api
@@ -52,8 +53,7 @@ namespace ToDoApp.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
-            services.AddPersistence(Configuration);
-            services.AddInfrastructure();
+            services.AddInfrastructure(Configuration);
             services.AddHealthChecks()
                 .AddDbContextCheck<ToDoDbContext>();
             services.AddHttpContextAccessor();
@@ -63,7 +63,8 @@ namespace ToDoApp.Api
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
-            services.AddTransient<ICurrentUserService, CurrentUserService>();
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             services
                 .AddControllersWithViews()
@@ -87,10 +88,12 @@ namespace ToDoApp.Api
                 RefreshUrl = tokenUrl,
                 Scopes = scopes
             };
+
             var swaggerOAuthImplicitFlow = new OpenApiOAuthFlow()
             {
                 AuthorizationUrl = authorizationUrl,
-               
+                RefreshUrl = tokenUrl,
+               // TokenUrl = tokenUrl,
                 Scopes = scopes
             };
             var swaggerSecurityCode = new OpenApiSecurityScheme()
@@ -98,25 +101,24 @@ namespace ToDoApp.Api
 
                 Flows = new OpenApiOAuthFlows()
                 {
-                   
+
                     AuthorizationCode = swaggerOAuthCodeFlow,
-                   // Implicit = swaggerOAuthFlow
+                    // Implicit = swaggerOAuthFlow
                 },
 
 
                 Type = OpenApiSecuritySchemeType.OAuth2,
 
-
-
-
             };
+
+
             var swaggerSecurityImplicit = new OpenApiSecurityScheme()
             {
 
                 Flows = new OpenApiOAuthFlows()
                 {
 
-                   // AuthorizationCode = swaggerOAuthFlow,
+                    //AuthorizationCode = swaggerOAuthFlow,
                     Implicit = swaggerOAuthImplicitFlow
                 },
 
@@ -131,6 +133,7 @@ namespace ToDoApp.Api
                 {
                     o.PostProcess = s =>
                     {
+
                         s.Host = Configuration["SwaggerHost"];
                         s.BasePath = "/";
                         s.Schemes = new List<OpenApiSchema>()
@@ -139,13 +142,15 @@ namespace ToDoApp.Api
                         };
                         s.SecurityDefinitions.Add("oauth2code", swaggerSecurityCode);
                         s.SecurityDefinitions.Add("oauth2implicit", swaggerSecurityImplicit);
+                        // s.SecurityDefinitions.Add("test",test);
 
                     };
                     o.Title = "ToDo App";
                     o.Description = "Yes...Another Todo App";
-
+                    o.SchemaType = SchemaType.Swagger2;
                     o.OperationProcessors.Add(new OperationSecurityScopeProcessor("oauth2code"));
                     o.OperationProcessors.Add(new OperationSecurityScopeProcessor("oauth2implicit"));
+                    // o.OperationProcessors.Add(new OperationSecurityScopeProcessor("test"));
                     //o.DocumentProcessors.Add(new SecurityDefinitionAppender("oauth2",swaggerSecurity));
                 }
 
@@ -153,8 +158,8 @@ namespace ToDoApp.Api
             );
 
 
-            services.AddTransient<IPrincipal>(
-                provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
+            //services.AddTransient<IPrincipal>(
+            //   provider => provider.GetService<IHttpContextAccessor>().HttpContext?.User);
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AuthenticationOptions");
             services.Configure<AuthenticationOptions>(appSettingsSection);

@@ -47,7 +47,7 @@
       "startupType": null,
       "allowNullableBodyParameters": true,
       "output": "wwwroot/api/specification.json",
-      "outputType": "Swagger2",
+      "outputType": "OpenApi3",
       "assemblyPaths": [],
       "assemblyConfig": null,
       "referencePaths": [],

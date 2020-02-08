@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ToDoApp.Application.Common.Interfaces;
-using ToDoApp.Persistence;
 
 namespace ToDoApp.Api
 {

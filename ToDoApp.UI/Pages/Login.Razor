@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.WebUtilities
+
+@page "/login"
+@inject NavigationManager Navigation
+<h2>Please login to access your todo's</h2>
+<a class="btn btn-success" href="/dologin">Login</a>
+
+
+@code{
+
+    void Click()
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        var returnUrl = uri.ToString();
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("returnUrl", out var param))
+        {
+            returnUrl = param.First();
+        }
+        Navigation.NavigateTo("DoLogin");
+    }
+
+}

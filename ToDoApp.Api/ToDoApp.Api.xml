@@ -53,7 +53,7 @@
             </summary>
             <param name="webhookUrl">The callback url of the webhook</param>
         </member>
-        <member name="M:ToDoApp.Api.Controllers.WebhookController.Delete">
+        <member name="M:ToDoApp.Api.Controllers.WebhookController.Delete(System.Guid)">
             <summary>
             Remove a webhook
             </summary>

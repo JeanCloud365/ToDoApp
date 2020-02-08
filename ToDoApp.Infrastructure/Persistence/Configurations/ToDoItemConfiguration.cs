@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.ValueGeneration;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.Enumerations;
 
-namespace ToDoApp.Persistence.Configurations
+namespace ToDoApp.Infrastructure.Persistence.Configurations
 {
-    public class ToDoItemConfiguration:IEntityTypeConfiguration<ToDoItem>
+    public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
     {
         public void Configure(EntityTypeBuilder<ToDoItem> builder)
         {
-            //builder.Property(o => o.Id).HasValueGenerator<GuidValueGenerator>();
-            builder.HasOne<ToDoUser>(o => o.User).WithMany();
-            builder.OwnsOne<ToDoStatus>(o => o.Status).WithOwner();
+            builder.HasKey(o => o.Id);
+            builder.Property(o => o.Id).ValueGeneratedNever();
+            //builder.OwnsOne(o => o.Status).WithOwner();
             builder.ToTable("Items");
         }
     }

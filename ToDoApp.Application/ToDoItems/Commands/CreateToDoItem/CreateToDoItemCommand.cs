@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using ToDoApp.Application.Common.Exceptions;
 using ToDoApp.Application.Common.Interfaces;
 using ToDoApp.Application.Notifications.Models;
@@ -28,7 +29,7 @@ namespace ToDoApp.Application.ToDoItems.Commands.CreateToDoItem
             }
             public async Task<CreateToDoItemViewModel> Handle(CreateToDoItemCommand request, CancellationToken cancellationToken)
             {
-                var user = await _toDoDbContext.ToDoUsers.FindAsync(_currentUser.Id);
+                var user = await _toDoDbContext.ToDoUsers.Include(o => o.Items).FirstOrDefaultAsync(o => o.Id.Equals(_currentUser.Id));
                 if (user == null)
                 {
                     throw new AccessDeniedException("Invalid User");
@@ -37,10 +38,10 @@ namespace ToDoApp.Application.ToDoItems.Commands.CreateToDoItem
                 var entity = new ToDoItem()
                 {
                     Description = request.Description,
-                    Title = request.Title,
-                    User = user
+                    Title = request.Title
                 };
-                var createdTodoItem = _toDoDbContext.ToDoItems.Add(entity);
+                user.Items.Add(entity);
+                
                 await _toDoDbContext.SaveChangesAsync(cancellationToken);
                 await _mediator.Publish(new ToDoItemCreated()
                 {

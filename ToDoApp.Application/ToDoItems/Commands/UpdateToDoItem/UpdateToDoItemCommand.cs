@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using ToDoApp.Application.Common.Exceptions;
 using ToDoApp.Application.Common.Interfaces;
 using ToDoApp.Domain.Entities;
 using ToDoApp.Domain.Enumerations;
@@ -32,15 +34,15 @@ namespace ToDoApp.Application.ToDoItems.Commands.UpdateToDoItem
             }
             public async Task<Unit> Handle(UpdateToDoItemCommand request, CancellationToken cancellationToken)
             {
-                var todo = await _toDoDbContext.ToDoItems.Include(a => a.User).FirstOrDefaultAsync(o => o.Id.Equals(request.Id));
-                if (todo == null)
+                var user = await _toDoDbContext.ToDoUsers.Include(a => a.Items).FirstOrDefaultAsync(o => o.Id.Equals(_currentUser.Id));
+                if (user == null)
                 {
-                    throw new Exception();
+                    throw new ItemNotFoundException("User does not exist");
                 }
 
-                if (_currentUser.Id != todo.User.Id)
+                if (_currentUser.Id != user.Id)
                 {
-                    throw new Exception();
+                    throw new AccessDeniedException("User is not current user");
                 }
 
                 if(!Enumeration.TryParse(request.Status, out ToDoStatus status))
@@ -48,16 +50,23 @@ namespace ToDoApp.Application.ToDoItems.Commands.UpdateToDoItem
                     throw new Exception();
                 }
 
-                todo.Id = request.Id;
+                var todo = user.Items.FirstOrDefault(o => o.Id.Equals(request.Id));
+
+                if (todo == null)
+                {
+                    throw new ItemNotFoundException("Item does not exist");
+                }
+
+                
                 todo.Description = request.Description;
                 todo.Title = request.Title;
                 todo.Status = status;
-                _toDoDbContext.ToDoItems.Update(todo);
+                _toDoDbContext.ToDoUsers.Update(user);
                 await _toDoDbContext.SaveChangesAsync(cancellationToken);
                 await _mediator.Publish(new ToDoItemUpdated()
                 {
                     UserId = _currentUser.Id,
-                    ToDoId = todo.Id
+                    ToDoId = user.Id
                 });
                 return Unit.Value;
             }

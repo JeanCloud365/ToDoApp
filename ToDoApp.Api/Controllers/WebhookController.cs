@@ -15,7 +15,7 @@ using ToDoApp.Application.ToDoUsers.Queries.ListToDoUsers;
 
 namespace ToDoApp.Api.Controllers
 {
-
+    
     public class WebhookController : BaseController
     {
         /// <summary>
@@ -30,23 +30,23 @@ namespace ToDoApp.Api.Controllers
         public async Task<IActionResult> Create(AddToDoUserWebhookCommand command)
         {
             
-            await Mediator.Send(command);
-            return CreatedAtAction("Delete", null);
+            var created = await Mediator.Send(command);
+            return CreatedAtAction("Delete",new {id = created.Item.Id},created);
         }
 
         /// <summary>
         /// Remove a webhook
         /// </summary>
         [OpenApiOperation("deleteWebhook")]
-        [HttpDelete()]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete()
+        public async Task<IActionResult> Delete(Guid id)
         {
             await Mediator.Send(new RemoveToDoUserWebhookCommand()
             {
-
+                Id = id
             });
 
             return Ok();
