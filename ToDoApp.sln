@@ -3,19 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29230.61
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Domain", "ToDoApp.Domain\ToDoApp.Domain.csproj", "{A19E3D1D-287E-4F47-B95A-20612729D87E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Domain", "src\ToDoApp.Domain\ToDoApp.Domain.csproj", "{A19E3D1D-287E-4F47-B95A-20612729D87E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Application", "ToDoApp.Application\ToDoApp.Application.csproj", "{061BA709-F3A2-49D3-9D16-74DA1099BA6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Application", "src\ToDoApp.Application\ToDoApp.Application.csproj", "{061BA709-F3A2-49D3-9D16-74DA1099BA6C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Persistence", "ToDoApp.Persistence\ToDoApp.Persistence.csproj", "{C66EE6BA-59C8-44A7-9243-252924D9DF26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Api", "src\ToDoApp.Api\ToDoApp.Api.csproj", "{A950E4EA-50E3-4819-813E-80856780FAD5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Api", "ToDoApp.Api\ToDoApp.Api.csproj", "{A950E4EA-50E3-4819-813E-80856780FAD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.UI", "src\ToDoApp.UI\ToDoApp.UI.csproj", "{A26C749F-47CA-48E5-B62D-51D294C8B585}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.UI", "ToDoApp.UI\ToDoApp.UI.csproj", "{A26C749F-47CA-48E5-B62D-51D294C8B585}"
+Project("{4DF76451-A46A-4C0B-BE03-459FAAFA07E6}") = "ToDoApp.PowerBiConnector", "src\ToDoApp.PowerBiConnector\ToDoApp.PowerBiConnector.mproj", "{3E988BA0-D34A-4D34-B90A-5C68A9B99B52}"
 EndProject
-Project("{4DF76451-A46A-4C0B-BE03-459FAAFA07E6}") = "ToDoApp.PowerBiConnector", "ToDoApp.PowerBiConnector\ToDoApp.PowerBiConnector.mproj", "{3E988BA0-D34A-4D34-B90A-5C68A9B99B52}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Infrastructure", "ToDoApp.Infrastructure\ToDoApp.Infrastructure.csproj", "{A24FB876-1055-4CA0-9285-A6B89D5A37DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Infrastructure", "src\ToDoApp.Infrastructure\ToDoApp.Infrastructure.csproj", "{A24FB876-1055-4CA0-9285-A6B89D5A37DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,14 +39,6 @@ Global
 		{061BA709-F3A2-49D3-9D16-74DA1099BA6C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{061BA709-F3A2-49D3-9D16-74DA1099BA6C}.Release|x86.ActiveCfg = Release|Any CPU
 		{061BA709-F3A2-49D3-9D16-74DA1099BA6C}.Release|x86.Build.0 = Release|Any CPU
-		{C66EE6BA-59C8-44A7-9243-252924D9DF26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C66EE6BA-59C8-44A7-9243-252924D9DF26}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C66EE6BA-59C8-44A7-9243-252924D9DF26}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C66EE6BA-59C8-44A7-9243-252924D9DF26}.Debug|x86.Build.0 = Debug|Any CPU
-		{C66EE6BA-59C8-44A7-9243-252924D9DF26}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C66EE6BA-59C8-44A7-9243-252924D9DF26}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C66EE6BA-59C8-44A7-9243-252924D9DF26}.Release|x86.ActiveCfg = Release|Any CPU
-		{C66EE6BA-59C8-44A7-9243-252924D9DF26}.Release|x86.Build.0 = Release|Any CPU
 		{A950E4EA-50E3-4819-813E-80856780FAD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A950E4EA-50E3-4819-813E-80856780FAD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A950E4EA-50E3-4819-813E-80856780FAD5}.Debug|x86.ActiveCfg = Debug|Any CPU

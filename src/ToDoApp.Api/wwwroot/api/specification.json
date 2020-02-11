@@ -1,0 +1,640 @@
+﻿{
+  "x-generator": "NSwag v13.2.2.0 (NJsonSchema v10.1.4.0 (Newtonsoft.Json v12.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "ToDo App",
+    "description": "Yes...Another Todo App",
+    "version": "1.0.0"
+  },
+  "host": "localhost:44301",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/api/Items": {
+      "get": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "List my todo items",
+        "operationId": "getTodos",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ListToDoItemsOfUserViewModel"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2code": []
+          },
+          {
+            "oauth2implicit": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Creates a new todo",
+        "operationId": "createTodo",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "command",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateToDoItemCommand"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreateToDoItemViewModel"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2code": []
+          },
+          {
+            "oauth2implicit": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Update an existing todo item",
+        "operationId": "updateTodo",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "name": "command",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateToDoItemCommand"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "oauth2code": []
+          },
+          {
+            "oauth2implicit": []
+          }
+        ]
+      }
+    },
+    "/api/Items/{id}": {
+      "get": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Retrieves a single todo",
+        "operationId": "getTodoById",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the todo to retrieve",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GetToDoItemViewModel"
+            }
+          },
+          "401": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "404": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2code": []
+          },
+          {
+            "oauth2implicit": []
+          }
+        ]
+      }
+    },
+    "/api/Webhook": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "summary": "Register a webhook for todo creations and updates",
+        "operationId": "createWebhook",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "command",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddToDoUserWebhookCommand"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "401": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "404": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2code": []
+          },
+          {
+            "oauth2implicit": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Webhook"
+        ],
+        "summary": "Retrieve current webhook",
+        "operationId": "getWebhook",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GetTodoUserWebhookViewModel"
+            }
+          },
+          "404": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2code": []
+          },
+          {
+            "oauth2implicit": []
+          }
+        ]
+      }
+    },
+    "/api/Webhook/{id}": {
+      "delete": {
+        "tags": [
+          "Webhook"
+        ],
+        "summary": "Remove a webhook",
+        "operationId": "deleteWebhook",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "guid",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "401": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "404": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2code": []
+          },
+          {
+            "oauth2implicit": []
+          }
+        ]
+      }
+    },
+    "/api/admin/Items": {
+      "get": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Lists all todo items (admin permissions required)",
+        "operationId": "getAdminTodos",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ListToDoItemsViewModel"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2code": []
+          },
+          {
+            "oauth2implicit": []
+          }
+        ]
+      }
+    },
+    "/api/admin/Users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Shows all todo users (admin permissions required)",
+        "operationId": "getAdminUsers",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ListToDoUsersViewModel"
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2code": []
+          },
+          {
+            "oauth2implicit": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ListToDoItemsOfUserViewModel": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListToDoItemsOfUserDto"
+          }
+        }
+      }
+    },
+    "ListToDoItemsOfUserDto": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "GetToDoItemViewModel": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/GetToDoItemDto"
+        }
+      }
+    },
+    "GetToDoItemDto": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "ProblemDetails": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "instance": {
+          "type": "string"
+        },
+        "extensions": {
+          "type": "object",
+          "additionalProperties": {}
+        }
+      }
+    },
+    "CreateToDoItemViewModel": {
+      "type": "object",
+      "properties": {
+        "toDoItem": {
+          "$ref": "#/definitions/CreateToDoItemDto"
+        }
+      }
+    },
+    "CreateToDoItemDto": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "guid"
+        }
+      }
+    },
+    "CreateToDoItemCommand": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateToDoItemCommand": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "status": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "AddToDoUserWebhookCommand": {
+      "type": "object",
+      "properties": {
+        "webhookUrl": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "GetTodoUserWebhookViewModel": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetToDoUserWebhookDto"
+          }
+        }
+      }
+    },
+    "GetToDoUserWebhookDto": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "webhookUrl": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "format": "guid"
+        }
+      }
+    },
+    "ListToDoItemsViewModel": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListToDoItemsDto"
+          }
+        }
+      }
+    },
+    "ListToDoItemsDto": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "ListToDoUsersViewModel": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListToDoUsersDto"
+          }
+        }
+      }
+    },
+    "ListToDoUsersDto": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "oauth2code": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/authorize",
+      "tokenUrl": "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/token",
+      "scopes": {
+        "https://appdatadev.onmicrosoft.com/todo/ReadAll": "Read All",
+        "offline_access": "offline_access",
+        "email": "email"
+      }
+    },
+    "oauth2implicit": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://appdatadev.b2clogin.com/appdatadev.onmicrosoft.com/B2C_1_signupsignin/oauth2/v2.0/authorize",
+      "scopes": {
+        "https://appdatadev.onmicrosoft.com/todo/ReadAll": "Read All",
+        "offline_access": "offline_access",
+        "email": "email"
+      }
+    }
+  }
+}
