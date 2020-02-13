@@ -6,3 +6,4 @@ obj/
 /ToDoApp.Api/appSettings.local.json
 /ToDoApp.Api/wwwroot/api/specification.json
 appSettings.local.json
+appsettings.local.json
