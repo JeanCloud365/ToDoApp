@@ -17,7 +17,7 @@ namespace ToDoApp.Infrastructure
 
             services.AddDbContext<ToDoDbContext>(options =>
             {
-                options.UseSqlite("Data Source=" + configuration["Data"]);
+                options.UseSqlServer(configuration["SqlConnectionString"]);
                 options.EnableSensitiveDataLogging();
             });
 
