@@ -13,6 +13,7 @@ namespace ToDoApp.Infrastructure.Persistence.Configurations
         {
             builder.HasKey(o => o.Id);
             builder.Property(o => o.Id).ValueGeneratedNever();
+            builder.Property(o => o.Description).HasColumnType("TEXT");
             //builder.OwnsOne(o => o.Status).WithOwner();
             builder.ToTable("Items");
         }
