@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    
     <UserSecretsId>aspnet-ToDoApp.UI-0B7FC758-C0D4-43A8-A2DB-A26A328EE7CC</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>

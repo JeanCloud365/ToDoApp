@@ -14,7 +14,7 @@ WORKDIR "/src/src/ToDoApp.UI"
 RUN dotnet build "ToDoApp.UI.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "ToDoApp.UI.csproj" -c Release -o /app/publish
+RUN dotnet publish "ToDoApp.UI.csproj" -c Release -o /app/publish -r linux-x64 --self-contained
 
 FROM base AS final
 WORKDIR /app
