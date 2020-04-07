@@ -4,10 +4,10 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+- azug20204-1
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 variables:
   solution: '**/*.sln'
@@ -16,46 +16,13 @@ variables:
   ASPNETCORE_ENVIRONMENT: 'Production'
 
 steps:
-- task: DotNetCoreCLI@2
+- task: DockerInstaller@0
   inputs:
-    command: 'build'
-    configuration: $(buildConfiguration)
-    projects: '**/ToDoApp.Api.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    dockerVersion: '17.09.0-ce'
 
-- task: DotNetCoreCLI@2
+- task: Docker@2
   inputs:
-    command: 'publish'
-    configuration: $(buildConfiguration)
-    projects: '**/ToDoApp.Api.csproj'
-    publishWebProjects: False
-    arguments: '--runtime win-x86 --self-contained --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\api'
-    zipAfterPublish: False
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    configuration: $(buildConfiguration)
-    projects: '**/ToDoApp.Ui.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    configuration: $(buildConfiguration)
-    projects: '**/ToDoApp.Ui.csproj'
-    publishWebProjects: False
-    arguments: '--runtime win-x86 --self-contained --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\ui'
-    zipAfterPublish: True
-    
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(build.artifactstagingdirectory)\api'
-    artifact: 'api'
-    publishLocation: 'pipeline'
-
-- task: PublishPipelineArtifact@1
-  inputs:
-   targetPath: '$(build.artifactstagingdirectory)\ui'
-   artifact: 'web'
-   publishLocation: 'pipeline'
+    containerRegistry: 'azug-acr'
+    repository: 'todo-web'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
