@@ -2,19 +2,6 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 
-#ssh
-ENV SSH_PASSWD "root:Docker!"
-RUN apt-get update \
-        && apt-get install -y --no-install-recommends dialog \
-        && apt-get update \
-  && apt-get install -y --no-install-recommends openssh-server \
-  && echo "$SSH_PASSWD" | chpasswd 
-
-COPY ["./src/ToDoApp.UI/sshd_config","/etc/ssh/"]
-COPY ["./src/ToDoApp.UI/init.sh","/usr/local/bin/"]
-RUN chmod 777 /usr/local/bin/init.sh
-RUN chmod +x /usr/local/bin/init.sh
-
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
@@ -34,4 +21,16 @@ RUN dotnet publish "ToDoApp.UI.csproj" -c Release -o /app/publish -r linux-x64 -
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["/bin/bash", "-c", "/usr/sbin/sshd && dotnet ToDoApp.UI.dll"]
+#ssh
+ENV SSH_PASSWD "root:Docker!"
+RUN apt-get update \
+        && apt-get install -y --no-install-recommends dialog \
+        && apt-get update \
+  && apt-get install -y --no-install-recommends openssh-server \
+  && echo "$SSH_PASSWD" | chpasswd 
+
+COPY ["./src/ToDoApp.UI/sshd_config","/etc/ssh/"]
+COPY ["./src/ToDoApp.UI/init.sh","/usr/local/bin/"]
+RUN chmod 777 /usr/local/bin/init.sh
+RUN chmod +x /usr/local/bin/init.sh
+ENTRYPOINT ["init.sh"]
