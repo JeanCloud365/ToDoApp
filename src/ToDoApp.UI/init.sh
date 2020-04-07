@@ -1,2 +1,2 @@
-﻿service ssh start
+﻿sshd -D
 dotnet ToDoApp.UI.dll
