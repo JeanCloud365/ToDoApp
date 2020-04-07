@@ -27,4 +27,4 @@ steps:
     repository: 'todo-web'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-    buildContext: '/'
+    buildContext: '$(Build.SourcesDirectory)'
