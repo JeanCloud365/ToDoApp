@@ -34,4 +34,4 @@ RUN dotnet publish "ToDoApp.UI.csproj" -c Release -o /app/publish -r linux-x64 -
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["/usr/local/bin/init.ssh"]
+ENTRYPOINT ["/bin/bash", "-c", "/usr/sbin/sshd && dotnet ToDoApp.UI.dll"]
