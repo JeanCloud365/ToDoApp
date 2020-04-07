@@ -34,5 +34,5 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENTRYPOINT ["init.sh"]
-#ENTRYPOINT ["dotnet", "ToDoApp.UI.dll"]
+#ENTRYPOINT ["init.sh"]
+ENTRYPOINT ["dotnet", "ToDoApp.UI.dll"]
