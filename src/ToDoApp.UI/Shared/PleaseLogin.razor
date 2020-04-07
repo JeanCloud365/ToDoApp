@@ -14,9 +14,9 @@ protected override async Task OnInitializedAsync()
         var returnUrl = Navigation.ToBaseRelativePath(Navigation.Uri);
 
         if (string.IsNullOrWhiteSpace(returnUrl))
-            Navigation.NavigateTo("/login", true);
+            Navigation.NavigateTo("login", true);
         else
-            Navigation.NavigateTo($"/login?returnUrl={returnUrl}", true);
+            Navigation.NavigateTo($"login?returnUrl={returnUrl}", true);
     }
 }
 
