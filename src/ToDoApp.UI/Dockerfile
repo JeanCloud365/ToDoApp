@@ -33,4 +33,5 @@ COPY ["./src/ToDoApp.UI/sshd_config","/etc/ssh/"]
 COPY ["./src/ToDoApp.UI/init.sh","/usr/local/bin/"]
 RUN chmod 777 /usr/local/bin/init.sh
 RUN chmod +x /usr/local/bin/init.sh
-ENTRYPOINT ["init.sh"]
+#ENTRYPOINT ["init.sh"]
+ENTRYPOINT ["dotnet", "ToDoApp.UI.dll"]
